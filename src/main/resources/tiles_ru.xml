@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+    <definition name="defaultLayout" template="/WEB-INF/tiles/layouts/defaultLayout.jsp">
+        <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/tiles/templates/footer.jsp"/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu_ru.jsp"/>
+        <put-attribute name="title" value="Привет"/>
+        <put-attribute name="pageScripts" value=""/>
+    </definition>
+
+    <!-- Home Page -->
+    <definition name="home" extends="defaultLayout">
+        <put-attribute name="title" value="Привет всем"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/home_ru.jsp"/>
+    </definition>
+    <definition name="registration" extends="defaultLayout">
+        <put-attribute name="body" value="/WEB-INF/jsp/registration.jsp"/>
+    </definition>
+    <!--Team login page-->
+    <definition name="login" extends="defaultLayout">
+        <put-attribute name="body" value="/WEB-INF/jsp/login.jsp"/>
+    </definition>
+    <!--Team menu page-->
+    <definition name="teamMenu" template="/WEB-INF/tiles/layouts/teamMenuLayout.jsp">
+        <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
+        <put-attribute name="title" value="Team Menu"/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu_ru.jsp"/>
+        <put-attribute name="menuHeader" value="/WEB-INF/jsp/teamMenuHeader.jsp"/>
+        <put-attribute name="menuItemsList" value="/WEB-INF/jsp/teamMenuItemsList_ru.jsp"/>
+        <put-attribute name="menuBody" value="/WEB-INF/jsp/teamMenuBody_ru.jsp"/>
+        <put-attribute name="menuAdditionals" value="/WEB-INF/jsp/teamMenuAdditionals.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/tiles/templates/footer.jsp"/>
+        <put-attribute name="pageScripts" value=""/>
+
+    </definition>
+
+    <!--Team menu actions-->
+        <definition name="editUser" extends="defaultLayout">
+            <put-attribute name="body" value="/WEB-INF/jsp/editUser.jsp"/>
+        </definition>
+    <definition name="addRobot" extends="defaultLayout">
+        <put-attribute name="body" value="/WEB-INF/jsp/addRobot.jsp"/>
+        <put-attribute name="pageScripts" value="/robotic/js/addRobot.js"/>
+
+    </definition>
+    <definition name="editRobot" extends="defaultLayout">
+        <put-attribute name="body" value="/WEB-INF/jsp/editRobot.jsp"/>
+        <put-attribute name="pageScripts" value="/robotic/js/addRobot.js"/>
+
+    </definition>
+    <definition name="addMember" extends="defaultLayout">
+        <put-attribute name="body" value="/WEB-INF/jsp/addMember.jsp"/>
+    </definition>
+    <definition name="editMember" extends="defaultLayout">
+        <put-attribute name="body" value="/WEB-INF/jsp/editMember.jsp"/>
+    </definition>
+    <!--Competitions rules-->
+    <definition name="rulesLayout" template="/WEB-INF/tiles/layouts/rulesLayout.jsp">
+        <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
+        <put-attribute name="title" value="Правила состязания"/>
+        <put-attribute name="footer" value="/WEB-INF/tiles/templates/footer.jsp"/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu_ru.jsp"/>
+        <put-attribute name="definitionTitle" value="Определение"/>
+        <put-attribute name="conditionsTitle" value="Условия"/>
+        <put-attribute name="fieldTitle" value="Поле"/>
+        <put-attribute name="requirementsTitle" value="Требование к роботу"/>
+        <put-attribute name="procedureTitle" value="Порядок проведения состязания"/>
+        <put-attribute name="pageScripts" value=""/>
+
+    </definition>
+    <definition name="sumoRules" extends="rulesLayout">
+        <put-attribute name="definition" value="/html/sumo/definition_ru.html"/>
+        <put-attribute name="conditions" value="/html/sumo/conditions_ru.html"/>
+        <put-attribute name="field" value="/html/sumo/field_ru.html"/>
+        <put-attribute name="requirements" value="/html/sumo/requirements_ru.html"/>
+        <put-attribute name="procedure" value="/html/sumo/procedure_ru.html"/>
+    </definition>
+    <!-- Errors pages-->
+    <definition name="errorPage" extends="defaultLayout">
+        <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/errorPage.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/tiles/templates/footer.jsp"/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
+        <put-attribute name="title" value="Error"/>
+    </definition>
+</tiles-definitions>
