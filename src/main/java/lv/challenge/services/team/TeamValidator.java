@@ -36,6 +36,7 @@ public class TeamValidator implements Validator<Team> {
                 if(teamFromBase.getId()!=entity.getId()){
                     errorsMap.put("teamNameErrorMsg", "This team name already exist. Please input different team name!");
                 }
+                dao.removeFromSessionCache(teamFromBase);
             }
         }
         if (errorsMap.size() != 0) throw new TeamValidationException("Team object validation error", errorsMap);

@@ -20,9 +20,9 @@ public class UserService extends CompetitorService<User> {
         this.validator = validator;
     }
 
-public Optional<User> findByLogin(String login){
+    public Optional<User> findByLogin(String login) {
         return ((UserDAO) dao).findByLogin(login);
-}
+    }
 
     @Override
     public Optional<User> getByIdWithCollections(Integer id) {

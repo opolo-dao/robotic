@@ -19,21 +19,16 @@ function checkedCount() {
 function enableAllCompetitionsCheckboxes() {
     for (i = 0; i < checkbox.length; i++) {
         checkbox[i].disabled = false;
-        checkbox[i].parentElement.style.color = "";
-        // checkbox[i].hidden = false;
-        // checkbox[i].parentElement.hidden = false;
+        checkbox[i].parentElement.style.opacity = "1";
+
     }
 }
 function disableAllFreeCompetitionsCheckboxes() {
     for (i = 0; i < checkbox.length; i++) {
         if (checkbox[i].value.search(/free|mini/) > -1) {
-            checkbox[i].parentElement.style.color = "red";
+            checkbox[i].parentElement.style.opacity = "0.5";
             checkbox[i].disabled = true;
-            // checkbox[i].hidden = true;
-            // checkbox[i].parentElement.hidden = true;
         }
-        else checkbox[i].parentElement.style.color = "green";
-
 
     }
 }
@@ -41,12 +36,8 @@ function disableAllLegoCompetitionsCheckboxes() {
     for (i = 0; i < checkbox.length; i++) {
         if (checkbox[i].value.search(/lego/) > -1) {
             checkbox[i].disabled = true;
-            checkbox[i].parentElement.style.color = "red";
-            // checkbox[i].hidden = true;
-            // checkbox[i].parentElement.hidden = true;
+            checkbox[i].parentElement.style.opacity = "0.5";
         }
-        else
-            checkbox[i].parentElement.style.color = "green";
     }
 }
 for (i = 0; i < checkbox.length; i++) {

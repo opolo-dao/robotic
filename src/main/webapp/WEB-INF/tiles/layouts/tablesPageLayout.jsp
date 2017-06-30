@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -12,6 +11,7 @@
     <title><tiles:getAsString name="title"/></title>
     <link rel="stylesheet" href="/robotic/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/robotic/css/myStyles.css"/>
+    <link rel="stylesheet" href="/robotic/DataTables/datatables.css"/>
 </head>
 <body>
 <tiles:importAttribute name="flag" scope="request"/>
@@ -31,6 +31,8 @@
 <tiles:importAttribute scope="request" name="pageScripts"/>
 <script src="/robotic/js/jquery-3.2.1.min.js"></script>
 <script src="/robotic/js/bootstrap.min.js"></script>
+<script src="/robotic/DataTables/datatables.js"></script>
 <script src="${pageScripts}"></script>
 </body>
 </html>
+

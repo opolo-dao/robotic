@@ -1,6 +1,7 @@
 package lv.challenge.domain.competitors;
 
 import lv.challenge.domain.DomainObject;
+import lv.challenge.domain.users.User;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 import org.springframework.context.annotation.Scope;
@@ -31,8 +32,19 @@ public class Team  implements DomainObject {
         @OneToMany
         @JoinColumn(name="teamid")
         private Set<Robot> robots = new HashSet<>();
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid")
+    private User user;
         @Version
         private int version;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
         public Set<Participant> getParticipants() {
                 return participants;
@@ -81,6 +93,7 @@ public class Team  implements DomainObject {
                 private String name;
                 private Set<Participant> participants = new HashSet<>();
                 private Set<Robot> robots = new HashSet<>();
+            private User user;
                 private int version;
 
                 private TeamBuilder() {
@@ -95,14 +108,10 @@ public class Team  implements DomainObject {
                         return this;
                 }
 
-
-
-
                 public TeamBuilder withName(String name) {
                         this.name = name;
                         return this;
                 }
-
 
                 public TeamBuilder withParticipants(Set<Participant> participants) {
                         this.participants = participants;
@@ -113,6 +122,11 @@ public class Team  implements DomainObject {
                         this.robots = robots;
                         return this;
                 }
+
+            public TeamBuilder withUser(User user) {
+                this.user = user;
+                return this;
+            }
 
                 public TeamBuilder withVersion(int version) {
                         this.version = version;
@@ -125,6 +139,7 @@ public class Team  implements DomainObject {
                         team.setName(name);
                         team.setParticipants(participants);
                         team.setRobots(robots);
+                    team.setUser(user);
                         team.setVersion(version);
                         return team;
                 }

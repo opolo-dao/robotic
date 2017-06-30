@@ -33,6 +33,7 @@ public class RobotValidator implements Validator<Robot> {
                         errorsList.put("robotNameErrorMsg", "Already occupied");
                     }
                 }
+                dao.removeFromSessionCache(list.get(0));
             }
         }
         if (entity.getCompetitions() == null)

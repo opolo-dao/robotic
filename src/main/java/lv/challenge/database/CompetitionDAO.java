@@ -1,6 +1,5 @@
 package lv.challenge.database;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -9,7 +8,6 @@ import java.util.Optional;
 public interface CompetitionDAO<T> {
     void save(T entity);
 
-    List<List<String>> getParticipantsList();
     void delete(T entity);
     Optional<T> getById(int id);
     Optional<T> loadById(int id);

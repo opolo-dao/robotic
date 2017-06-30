@@ -38,8 +38,8 @@ public class User implements DomainObject {
     @Expose
     @Column(name = "surname")
     private String surname;
-    @OneToOne
-    @JoinColumn(name="teamid")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "user")
+    @JoinColumn(name = "teamid")
     private Team team;
     @OneToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "contactid")

@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -38,9 +37,5 @@ public abstract class CompetitionsHibernateDAO<T> {
     }
     public Optional<T> loadById(int id){
         return  getCurrentSession().byId(competitionClass).loadOptional(id);
-    }
-
-    public List<List<String>> getParticipantsList() {
-        return null;
     }
 }

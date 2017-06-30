@@ -85,16 +85,30 @@
         <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
         <put-attribute name="title" value="Error"/>
     </definition>
-<definition name="adminMenu" template="/WEB-INF/tiles/layouts/adminMenuLayout.jsp">
-    <put-attribute name="title" value="Admin Menu"/>
-    <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
-    <put-attribute name="menuHeader" value="/WEB-INF/jsp/adminMenuHeader.jsp"/>
-    <put-attribute name="menuItemsList" value="/WEB-INF/jsp/adminMenuItemsList.jsp"/>
-    <put-attribute name="menuBody" value="/WEB-INF/jsp/adminMenuBody.jsp"/>
-    <put-attribute name="menuAdditionals" value="/WEB-INF/jsp/adminMenuAdditionals.jsp"/>
-    <put-attribute name="footer" value="/WEB-INF/tiles/templates/footer.jsp"/>
-    <put-attribute name="flag" value="/robotic/pictures/gb.svg"/>
-    <put-attribute name="pageScripts" value=""/>
+    <!--admin menu-->
+    <definition name="adminMenu" template="/WEB-INF/tiles/layouts/adminMenuLayout.jsp">
+        <put-attribute name="title" value="Admin Menu"/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
+        <put-attribute name="menuHeader" value="/WEB-INF/jsp/adminMenuHeader.jsp"/>
+        <put-attribute name="menuItemsList" value="/WEB-INF/jsp/adminMenuItemsList.jsp"/>
+        <put-attribute name="menuBody" value="/WEB-INF/jsp/adminMenuBody.jsp"/>
+        <put-attribute name="menuAdditionals" value="/WEB-INF/jsp/adminMenuAdditionals.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/tiles/templates/footer.jsp"/>
+        <put-attribute name="flag" value="/robotic/pictures/gb.svg"/>
+        <put-attribute name="pageScripts" value=""/>
+    </definition>
+    <definition name="createTournament" extends="defaultLayout">
+        <put-attribute name="body" value="/WEB-INF/jsp/createTournament.jsp"/>
+        <put-attribute name="pageScripts" value="/robotic/js/createTournament.js"/>
+    </definition>
 
-</definition>
+
+    <definition name="participantsTables" template="/WEB-INF/tiles/layouts/tablesPageLayout.jsp">
+        <put-attribute name="flag" value="/robotic/pictures/gb.svg"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/participantsTables.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/tiles/templates/footer.jsp"/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
+        <put-attribute name="title" value="RoboChallenge"/>
+        <put-attribute name="pageScripts" value="/robotic/js/competitionTablesScripts.js"/>
+    </definition>
 </tiles-definitions>

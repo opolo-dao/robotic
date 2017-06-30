@@ -6,8 +6,8 @@
             Add new team member
         </div>
         <div class="panel-body">
-            <form method="post">
-                    <label class="form-group">Personal data</label>
+            <form method="post" accept-charset="UTF-8">
+                <label class="form-group">Personal data</label>
                     <br style="font-size: 0.5em">
                     <div class="input-group">
                         <span class="input-group-addon" id="nameAdd">Name</span>

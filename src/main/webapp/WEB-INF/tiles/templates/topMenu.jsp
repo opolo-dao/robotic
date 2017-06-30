@@ -27,17 +27,7 @@
 
             </ul>
         </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Participants</a>
-            <ul class="dropdown-menu">
-                <li><a href="/robotic/participants/general">All participants</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="/robotic/participants/sumo">Sumo</a></li>
-                <li><a href="/robotic/participants/linefollower">LineFollower</a></li>
-                <li><a href="/robotic/participants/labyrinth">Labyrinth</a></li>
-                <li><a href="/robotic/participants/folkrace">Folkrace</a></li>
-            </ul>
+        <li><a href="/robotic/participants">Participants</a></li>
         </li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"

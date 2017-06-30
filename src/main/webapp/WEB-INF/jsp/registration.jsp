@@ -115,6 +115,12 @@
                                             required="true"
                                             aria-describedby="loginAdd" placeholder="Login"/>
                             </div>
+                            <c:if test="${errors.userLoginErrorMsg != null}">
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                        ${errors.userLoginErrorMsg}</div>
+                            </c:if>
                         </div>
                     </div>
                     <div class="row">

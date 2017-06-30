@@ -19,4 +19,6 @@ public interface CompetitorsDAO<T> {
     boolean isNameAlreadyExist(String name);
     Set<T> getByMultipleIds(List<Integer> list);
 
+    void removeFromSessionCache(T entity);
+
 }

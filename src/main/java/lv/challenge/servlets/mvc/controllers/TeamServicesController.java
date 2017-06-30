@@ -53,6 +53,7 @@ public class TeamServicesController {
                 .filter(robot -> robot.getOperators().isEmpty())
                 .collect(Collectors.toSet());
         for (Robot robot : robotToDelete) {
+            robotService.deleteById(robot.getId());
             team.getRobots().remove(robot);
         }
         if (!robotToDelete.isEmpty()) {

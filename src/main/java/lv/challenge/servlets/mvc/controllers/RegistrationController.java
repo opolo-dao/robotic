@@ -38,7 +38,7 @@ public class RegistrationController {
     private BCryptPasswordEncoder encoder;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String registerTeam(HttpServletRequest req, HttpServletResponse resp, Model model) {
+    public String registerUser(HttpServletRequest req, HttpServletResponse resp, Model model) {
         model.addAttribute("registrationInfo", new RegistrationInfo());
         return "registration";
     }
@@ -80,9 +80,10 @@ public class RegistrationController {
             model.addAttribute("errors", errorsMap);
             return "registration";
         }
-        teamService.saveWithoutValidation(team);
+        //teamService.saveWithoutValidation(team);
         contactService.saveWithoutValidation(contact);
         user.setContact(contact);
+        team.setUser(user);
         user.setTeam(team);
         userService.saveWithoutValidation(user);
         return "redirect:menu";

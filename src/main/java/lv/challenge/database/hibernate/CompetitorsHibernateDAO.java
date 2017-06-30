@@ -62,7 +62,7 @@ public abstract class CompetitorsHibernateDAO<T> {
 
     public void update(T entity) {
         Session s = getCurrentSession();
-        s.clear();
+        // s.clear();
         s.update(entity);
     }
 
@@ -96,5 +96,9 @@ public abstract class CompetitorsHibernateDAO<T> {
                 "WHERE t." + fieldName + " = :value";
         TypedQuery<T> query = getCurrentSession().createQuery(hql, objectClass).setParameter("value", value);
         return query.getResultList();
+    }
+
+    public void removeFromSessionCache(T entity) {
+        getCurrentSession().evict(entity);
     }
 }

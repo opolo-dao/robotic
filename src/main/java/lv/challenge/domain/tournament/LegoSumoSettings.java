@@ -12,4 +12,5 @@ public class LegoSumoSettings implements CompetitionSettings {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private int id;
+
 }
