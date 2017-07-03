@@ -12,6 +12,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
@@ -25,17 +26,23 @@ import java.util.Locale;
 @EnableWebMvc
 @ComponentScan(basePackages = "lv.challenge.servlets.mvc")
 public class SpringMVCConfig extends WebMvcConfigurerAdapter {
-    /*    @Bean
-        public ViewResolver viewResolver() {
-            InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-            viewResolver.setPrefix("/WEB-INF/jsp/");
-            viewResolver.setSuffix(".jsp");
-            return viewResolver;
-        }*/
+    /*        @Bean
+            public ViewResolver viewResolver() {
+                InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+                viewResolver.setPrefix("/WEB-INF/jsp/");
+                viewResolver.setSuffix(".jsp");
+                return viewResolver;
+            }*/
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
-        TilesViewResolver viewResolver = new TilesViewResolver();
-        registry.viewResolver(viewResolver);
+        TilesViewResolver tilesViewResolver = new TilesViewResolver();
+        InternalResourceViewResolver internalViewResolver = new InternalResourceViewResolver();
+        internalViewResolver.setPrefix("/WEB-INF/jsp/");
+        internalViewResolver.setSuffix(".jsp");
+        tilesViewResolver.setOrder(0);
+        internalViewResolver.setOrder(1);
+        registry.viewResolver(tilesViewResolver);
+        registry.viewResolver(internalViewResolver);
 
     }
 
@@ -72,6 +79,7 @@ public class SpringMVCConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
         lci.setParamName("lang");
+        registry.addInterceptor(lci).addPathPatterns("/**");
         registry.addInterceptor(getAddMemberInterceptor()).addPathPatterns("/menu/addmember");
     }
 

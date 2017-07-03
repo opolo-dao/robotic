@@ -94,8 +94,9 @@
                     <li >
                         <div class="row">
                             <div class="col-md-12">
-                                <form class="form" role="form" method="post" action="login" accept-charset="UTF-8"
-                                      id="login-nav"  style="margin-bottom: 0px">
+                                <form class="form" role="form" method="post" action="/robotic/login"
+                                      accept-charset="UTF-8"
+                                      id="login-nav" style="margin-bottom: 0px">
                                     <div style="margin-bottom: 12px" class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                         <input id="username" type="text" class="form-control" name="username" value=""

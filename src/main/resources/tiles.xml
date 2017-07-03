@@ -95,12 +95,16 @@
         <put-attribute name="menuAdditionals" value="/WEB-INF/jsp/adminMenuAdditionals.jsp"/>
         <put-attribute name="footer" value="/WEB-INF/tiles/templates/footer.jsp"/>
         <put-attribute name="flag" value="/robotic/pictures/gb.svg"/>
-        <put-attribute name="pageScripts" value=""/>
+        <put-attribute name="pageScripts" value="/robotic/js/adminPageScripts.js"/>
     </definition>
     <definition name="createTournament" extends="defaultLayout">
         <put-attribute name="body" value="/WEB-INF/jsp/createTournament.jsp"/>
         <put-attribute name="pageScripts" value="/robotic/js/createTournament.js"/>
     </definition>
+    <!--   <definition name="robotToCheck" extends="participantsTables">
+           <put-attribute name="body" value="/WEB-INF/jsp/robotsToCheck.jsp"/>
+           <put-attribute name="pageScripts" value="/robotic/js/robotsToCheck.js"/>
+       </definition>-->
 
 
     <definition name="participantsTables" template="/WEB-INF/tiles/layouts/tablesPageLayout.jsp">

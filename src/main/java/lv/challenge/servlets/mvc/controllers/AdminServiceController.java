@@ -37,8 +37,7 @@ public class AdminServiceController {
     public String createTournament(@RequestParam("name") String name,
                                    @RequestParam("eventDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime eventDateTime,
                                    @RequestParam("startRegistration") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startRegistration,
-                                   @RequestParam("endRegistration") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endRegistration
-    ) {
+                                   @RequestParam("endRegistration") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endRegistration) {
         Tournament tournament = Tournament.TournamentBuilder.createTournament()
                 .withActive(true)
                 .withEventDateTime(eventDateTime)
@@ -48,5 +47,10 @@ public class AdminServiceController {
                 .build();
         tournamentService.save(tournament);
         return "redirect:/admin#info";
+    }
+
+    @GetMapping("/checkrobots")
+    public String getRobotsToCheck() {
+        return "robotsToCheck";
     }
 }

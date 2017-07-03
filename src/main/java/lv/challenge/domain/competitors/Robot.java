@@ -28,6 +28,8 @@ public class Robot implements DomainObject {
     String name;
     @Column(name="rfid_uuid")
     String rfid_uuid;
+    @Column(name = "checked", nullable = false)
+    boolean checked;
     @Version
     int version;
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
@@ -109,6 +111,14 @@ public class Robot implements DomainObject {
         this.rfid_uuid = rfid_uuid;
     }
 
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -139,6 +149,7 @@ public class Robot implements DomainObject {
         Team team;
         Set<CompetitionType> competitions = new HashSet<>();
         boolean registered;
+        boolean checked;
         private RobotBuilder() {
         }
 
@@ -184,6 +195,10 @@ public class Robot implements DomainObject {
             return this;
         }
 
+        public RobotBuilder withChecked(boolean checked) {
+            this.checked = checked;
+            return this;
+        }
         public Robot build() {
             Robot robot = new Robot();
             robot.setId(id);
@@ -194,6 +209,7 @@ public class Robot implements DomainObject {
             robot.setCompetitions(competitions);
             robot.setRfid_uuid(rfid_uuid);
             robot.setRegistered(registered);
+            robot.setChecked(checked);
             return robot;
         }
     }

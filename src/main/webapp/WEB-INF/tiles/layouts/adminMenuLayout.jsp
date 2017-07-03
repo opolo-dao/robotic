@@ -7,6 +7,7 @@
     <title><tiles:getAsString name="title"/></title>
     <link rel="stylesheet" href="/robotic/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/robotic/css/myStyles.css"/>
+    <link rel="stylesheet" href="/robotic/DataTables/datatables.css"/>
 </head>
 <body>
 <tiles:importAttribute name="flag" scope="request"/>
@@ -25,8 +26,8 @@
             <tiles:insertAttribute name="menuItemsList"/>
         </div>
 
-        <div class="col-lg-8">
-            <tiles:insertAttribute name="menuBody"/>
+        <div id="menuBody" class="col-lg-8">
+
         </div>
 
         <div class="col-lg-2">
@@ -40,9 +41,11 @@
     </div>
 
 </footer>
-
+<tiles:importAttribute scope="request" name="pageScripts"/>
 <script src="/robotic/js/jquery-3.2.1.min.js"></script>
 <script src="/robotic/js/bootstrap.min.js"></script>
 <script src="/robotic/js/myScripts.js"></script>
+<script src="/robotic/DataTables/datatables.js"></script>
+<script src="${pageScripts}"></script>
 </body>
 </html>

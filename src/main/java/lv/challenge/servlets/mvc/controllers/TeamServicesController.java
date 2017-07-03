@@ -253,6 +253,7 @@ public class TeamServicesController {
             robot.get().setCompetitions(competitions);
             robot.get().setOperators(operators);
             robot.get().setName(name);
+            robot.get().setChecked(false);
             errorsMap = robotService.update(robot.get());
             if (!errorsMap.isEmpty()) {
                 model.addAttribute("oldName", oldName);

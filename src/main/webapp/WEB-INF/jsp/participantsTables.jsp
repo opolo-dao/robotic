@@ -8,9 +8,9 @@
         <li id="legofolkrace" class="btn btn-default">Lego Folkrace</li>
         <li id="legolabyrinth" class="btn btn-default">Lego Labyrinth</li>
         <li id="minisumo" class="btn btn-default">Mini sumo</li>
-        <li id="freelinefollower" class="btn btn-default">Free Linefollower</li>
-        <li id="freefolkrace" class="btn btn-default">Free Folkrace</li>
-        <li id="freelabyrinth" class="btn btn-default">Free Labyrinth</li>
+        <li id="freelinefollower" class="btn btn-default">Linefollower</li>
+        <li id="freefolkrace" class="btn btn-default">Folkrace</li>
+        <li id="freelabyrinth" class="btn btn-default">Labyrinth</li>
     </ul>
 </div>
 <br>

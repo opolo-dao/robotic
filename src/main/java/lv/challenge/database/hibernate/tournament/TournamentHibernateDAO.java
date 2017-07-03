@@ -96,6 +96,7 @@ public class TournamentHibernateDAO implements TournamentDAO {
         CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
         CriteriaQuery<Robot> cq = cb.createQuery(Robot.class);
         cq.select(cq.from(Robot.class));
+        cq.where(cb.equal(cq.from(Robot.class).get(Robot_.checked), true));
         TypedQuery<Robot> typedQuery = getCurrentSession().createQuery(cq);
         return typedQuery.getResultList();
     }
@@ -105,7 +106,8 @@ public class TournamentHibernateDAO implements TournamentDAO {
         CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
         CriteriaQuery<Robot> cq = cb.createQuery(Robot.class);
         Root<Robot> robotRoot = cq.from(Robot.class);
-        cq.where(cb.isMember(competition, robotRoot.get(Robot_.competitions)));
+        cq.where(cb.isMember(competition, robotRoot.get(Robot_.competitions)))
+                .where(cb.equal(robotRoot.get(Robot_.checked), true));
         Query query = getCurrentSession().createQuery(cq);
         return query.getResultList();
     }

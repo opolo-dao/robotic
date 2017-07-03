@@ -38,7 +38,8 @@ public class RobotValidator implements Validator<Robot> {
         }
         if (entity.getCompetitions() == null)
             errorsList.put("robotCompetitionsErrorMsg", "Robot must be registered at least on one competition");
-        if (entity.getOperators() == null) errorsList.put("robotOperatorsErrorMsg", "Robot must have at least one operator");
+        if (entity.getOperators() == null || entity.getOperators().size() > 3)
+            errorsList.put("robotOperatorsErrorMsg", "Number of robot operators must be between one and three");
         if (errorsList.size() != 0) throw new
 
                 RobotValidationError("Robot validation error", errorsList);
