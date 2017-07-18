@@ -30,4 +30,8 @@ public interface TournamentDAO {
     List<Robot> getAllRobots();
 
     List<Robot> getCompetitionRobots(CompetitionType competition);
+
+    List<Robot> getRobotsToAccept();
+
+    Long getNumberOfRobotsToCheck();
 }

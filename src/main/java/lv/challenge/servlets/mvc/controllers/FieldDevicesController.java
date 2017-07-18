@@ -10,19 +10,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Daniil on 19.06.2017.
+ * Created by Daniil on 03.07.2017.
  */
 @RestController
-@RequestMapping("/rest")
-public class RestFullController {
-
-    @GetMapping("/hello")
+@RequestMapping("/fieldcontroller")
+public class FieldDevicesController {
+    @GetMapping
     @ResponseBody
-    private Map<String, String> hello(HttpServletRequest req) throws Exception {
-        Map<String, String> answer = new HashMap<>();
-        answer.put("Greeting Message", "Hello rest user");
-        answer.put("Your IP", req.getRemoteAddr());
-        return answer;
+    public Map<String, String> test(HttpServletRequest req) {
+        Map<String, String> map = new HashMap<>();
+        map.put("Greeting Message", "Hello Field Controller");
+        map.put("Your IP", req.getRemoteAddr());
+        return map;
     }
 }
-

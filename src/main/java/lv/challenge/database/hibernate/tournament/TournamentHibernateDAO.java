@@ -95,8 +95,9 @@ public class TournamentHibernateDAO implements TournamentDAO {
     public List<Robot> getAllRobots() {
         CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
         CriteriaQuery<Robot> cq = cb.createQuery(Robot.class);
-        cq.select(cq.from(Robot.class));
-        cq.where(cb.equal(cq.from(Robot.class).get(Robot_.checked), true));
+        Root<Robot> root = cq.from(Robot.class);
+        cq.select(root);
+        cq.where(cb.equal(root.get(Robot_.checked), true));
         TypedQuery<Robot> typedQuery = getCurrentSession().createQuery(cq);
         return typedQuery.getResultList();
     }
@@ -106,11 +107,33 @@ public class TournamentHibernateDAO implements TournamentDAO {
         CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
         CriteriaQuery<Robot> cq = cb.createQuery(Robot.class);
         Root<Robot> robotRoot = cq.from(Robot.class);
-        cq.where(cb.isMember(competition, robotRoot.get(Robot_.competitions)))
-                .where(cb.equal(robotRoot.get(Robot_.checked), true));
+        cq.where(cb.and(cb.isMember(competition, robotRoot.get(Robot_.competitions)), cb.equal(robotRoot.get(Robot_.checked), true)));
         Query query = getCurrentSession().createQuery(cq);
         return query.getResultList();
     }
+
+    @Override
+    public List<Robot> getRobotsToAccept() {
+        CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
+        CriteriaQuery<Robot> cq = cb.createQuery(Robot.class);
+        Root<Robot> root = cq.from(Robot.class);
+        cq.select(root);
+        cq.where(cb.equal(root.get(Robot_.checked), false));
+        TypedQuery<Robot> typedQuery = getCurrentSession().createQuery(cq);
+        return typedQuery.getResultList();
+    }
+
+    public Long getNumberOfRobotsToCheck() {
+        CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<Robot> root = cq.from(Robot.class);
+        cq.select(cb.count(root));
+        cq.where(cb.equal(root.get(Robot_.checked), false));
+        TypedQuery<Long> typedQuery = getCurrentSession().createQuery(cq);
+        return typedQuery.getSingleResult();
+    }
+
+
 
 
 }

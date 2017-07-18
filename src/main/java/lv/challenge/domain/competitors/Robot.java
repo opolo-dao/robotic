@@ -39,7 +39,7 @@ public class Robot implements DomainObject {
             inverseJoinColumns = @JoinColumn(name = "participantid")
     )
     Set<Participant> operators = new HashSet<>();
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="teamid")
     Team team;
     @ElementCollection

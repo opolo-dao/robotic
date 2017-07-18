@@ -40,14 +40,19 @@ public class TournamentService {
     }
 
     public List<List<String>> getAllCompetitors() {
-        return prepareTable(dao.getAllRobots());
+        return prepareTable(dao.getAllRobots(), false);
     }
 
     public List<List<String>> getCompetitionRobots(CompetitionType competition) {
-        return prepareTable(dao.getCompetitionRobots(competition));
+        return prepareTable(dao.getCompetitionRobots(competition), false);
     }
 
-    private List<List<String>> prepareTable(List<Robot> list) {
+    public List<List<String>> getRobotsToAccept() {
+        return prepareTable(dao.getRobotsToAccept(), true);
+
+    }
+
+    private List<List<String>> prepareTable(List<Robot> list, boolean withAccept) {
         List<List<String>> result = new ArrayList<>();
         for (Robot robot : list) {
             List<String> record = new ArrayList<>();
@@ -65,8 +70,13 @@ public class TournamentService {
                     .map(e -> e.goodLook()).reduce((s1, s2) -> s1 + "," + s2)
                     .orElse("");
             record.add(competitions);
+            if (withAccept) record.add(Integer.toString(robot.getId()));
             result.add(record);
         }
         return result;
+    }
+
+    public Long getNumberOfRobotsToCheck() {
+        return dao.getNumberOfRobotsToCheck();
     }
 }

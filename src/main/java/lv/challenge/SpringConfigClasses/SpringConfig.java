@@ -27,7 +27,6 @@ import java.util.Properties;
 @ComponentScan("lv.challenge")
 public class SpringConfig {
     private static final String DATABASE_PROPERTIES_FILE = "database.properties";
-
     @Bean
     public static PropertySourcesPlaceholderConfigurer prodPropertiesPlaceholderConfigurer() {
         PropertySourcesPlaceholderConfigurer p = new PropertySourcesPlaceholderConfigurer();

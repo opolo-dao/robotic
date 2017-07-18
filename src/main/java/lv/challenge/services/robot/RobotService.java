@@ -31,4 +31,12 @@ this.validator = validator;
     }
     return robotOptional;
   }
+
+    public void setRobotChecked(int id) {
+        Optional<Robot> robotOptional = dao.getById(id);
+        if (robotOptional.isPresent()) {
+            robotOptional.get().setChecked(true);
+            dao.update(robotOptional.get());
+        }
+    }
 }
