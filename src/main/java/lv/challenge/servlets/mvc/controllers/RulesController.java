@@ -15,4 +15,19 @@ public class RulesController {
     public String getSumoRules(Model model){
     return "sumoRules";
 }
+
+    @GetMapping("/linefollower")
+    public String getLinefollowerRules(Model model) {
+        return "linefollowerRules";
+    }
+
+    @GetMapping("/labyrinth")
+    public String getLabyrinthRules(Model model) {
+        return "labyrinthRules";
+    }
+
+    @GetMapping("/folkrace")
+    public String getFolkraceRules(Model model) {
+        return "folkraceRules";
+    }
 }

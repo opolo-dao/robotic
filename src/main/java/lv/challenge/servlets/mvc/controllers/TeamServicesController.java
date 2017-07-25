@@ -1,5 +1,6 @@
 package lv.challenge.servlets.mvc.controllers;
 
+import lv.challenge.application.ApplicationService;
 import lv.challenge.domain.competitions.CompetitionType;
 import lv.challenge.domain.competitors.Contact;
 import lv.challenge.domain.competitors.Participant;
@@ -40,6 +41,8 @@ public class TeamServicesController {
     CompetitorService<User> userService;
     @Autowired
     StateData stateData;
+    @Autowired
+    ApplicationService appService;
 
     @GetMapping
     public String getTeamMenu(Authentication auth,
@@ -90,21 +93,23 @@ public class TeamServicesController {
         user.getContact().setPhoneNumber(phone);
         user.getContact().setEmail(email);
         user.getTeam().setName(teamName);
-        errorsMap.putAll(contactService.validate(user.getContact(), Validator.Purpose.UPDATE));
-        errorsMap.putAll(teamService.validate(user.getTeam(), Validator.Purpose.UPDATE));
-        if (!errorsMap.isEmpty()) {
-            model.addAttribute("user", user);
-            model.addAttribute("errors", errorsMap);
-            return "editUser";
-        }
         user.setName(name);
         user.setSurname(surname);
         user.setOrganisation(orgName);
         user.setState(state);
         user.setCity(city);
-        teamService.update(user.getTeam());
-        contactService.update(user.getContact());
-        userService.update(user);
+        errorsMap.putAll(contactService.validate(user.getContact(), Validator.Purpose.UPDATE));
+        errorsMap.putAll(teamService.validate(user.getTeam(), Validator.Purpose.UPDATE));
+        errorsMap.putAll(userService.validate(user, Validator.Purpose.UPDATE));
+        if (!errorsMap.isEmpty()) {
+            model.addAttribute("user", user);
+            model.addAttribute("errors", errorsMap);
+            return "editUser";
+        }
+
+        teamService.updateWithoutValidation(user.getTeam());
+        contactService.updateWithoutValidation(user.getContact());
+        userService.updateWithoutValidation(user);
         return "redirect:/menu#info";
     }
 

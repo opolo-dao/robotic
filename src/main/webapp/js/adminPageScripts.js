@@ -1,4 +1,31 @@
 $(function () {
+    function getTournamentMenu() {
+        jQuery.get({
+            "url": "/robotic/admin/tournamentssettings",
+            "success": function (data) {
+                $("#menuBody").html(data);
+                $("#tournamentsList").on('change', function (event) {
+                    $("#tournamentsList option:selected").each(function () {
+                        var tournamentId = {"tournamentId": $(this)[0].value}
+                        getTournamentStatistic(tournamentId)
+                    })
+                })
+            }
+        })
+    }
+
+    function getTournamentStatistic(tournamentId) {
+        jQuery.get({
+            "url": "/robotic/admin/rest/gettournamentstatistic",
+            "data": tournamentId,
+            "success": function (data) {
+                console.log(data)
+            }
+        })
+    }
+
+    getTournamentMenu();
+
     $("#robotsToCheck").on('click', function () {
         jQuery.get("/robotic/admin/checkrobots", function (data) {
             $("#menuBody").html(data);
@@ -52,4 +79,8 @@ $(function () {
         })
 
     })
+    $("#tournaments").on("click", function () {
+        getTournamentMenu();
+    })
+
 })

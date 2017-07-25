@@ -17,7 +17,7 @@ public class Tournament {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private int id;
+    private Integer id;
     @Column(name = "event_date")
     private LocalDateTime eventDateTime;
     @Column(name = "registration_allowed")
@@ -57,11 +57,11 @@ public class Tournament {
     @JoinColumn(name = "LSSid")
     private LegoSumoSettings legoSumoSettings;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -178,7 +178,7 @@ public class Tournament {
     }
 
     public static final class TournamentBuilder {
-        private int id;
+        private Integer id;
         private LocalDateTime eventDateTime;
         private boolean registrationOpen;
         private LocalDateTime startRegistrationDateTime;
@@ -201,7 +201,7 @@ public class Tournament {
             return new TournamentBuilder();
         }
 
-        public TournamentBuilder withId(int id) {
+        public TournamentBuilder withId(Integer id) {
             this.id = id;
             return this;
         }

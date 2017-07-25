@@ -13,9 +13,9 @@ import java.util.Optional;
 public interface TournamentDAO {
     void save(Tournament entity);
 
-    Optional<Tournament> loadById(int id);
+    Optional<Tournament> loadById(Integer id);
 
-    void deleteById(int id);
+    void deleteById(Integer id);
 
     void delete(Tournament tournament);
 
@@ -34,4 +34,8 @@ public interface TournamentDAO {
     List<Robot> getRobotsToAccept();
 
     Long getNumberOfRobotsToCheck();
+
+    List<String> getUniqCountries(Integer tournamentId);
+
+    Optional<Tournament> getActiveTournament();
 }
