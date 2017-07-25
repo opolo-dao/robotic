@@ -330,7 +330,7 @@ public class RegistrationConfirmEmail {
                 "    </table>\n" +
                 "  </body>\n" +
                 "</html>";
-        //mimeMessage.setContent(htmlMsg, "text/html");
+
         helper.setTo(toEmail);
         helper.setSubject("Registration confirmation from ROBOTICS");
         helper.setFrom("info@robotics.lv");
