@@ -73,6 +73,7 @@ public class SpringMVCConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/pictures/**").addResourceLocations("/pictures/");
         registry.addResourceHandler("/fonts/**").addResourceLocations("/fonts/");
         registry.addResourceHandler("/DataTables/**").addResourceLocations("/DataTables/");
+        registry.addResourceHandler("/ckeditor/**").addResourceLocations("/ckeditor/");
     }
 
     @Override

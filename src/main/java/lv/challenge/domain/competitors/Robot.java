@@ -46,6 +46,16 @@ public class Robot implements DomainObject {
     Set<CompetitionType> competitions = new HashSet<>();
     @Column(name = "registered")
     private boolean registered;
+    @Column(name = "tournamentId")
+    private Integer tournamentId;
+
+    public Integer getTournamentId() {
+        return tournamentId;
+    }
+
+    public void setTournamentId(Integer tournamentId) {
+        this.tournamentId = tournamentId;
+    }
 
     public boolean isRegistered() {
         return registered;
@@ -150,6 +160,7 @@ public class Robot implements DomainObject {
         Set<CompetitionType> competitions = new HashSet<>();
         boolean registered;
         boolean checked;
+        Integer tournamentId;
         private RobotBuilder() {
         }
 
@@ -199,6 +210,11 @@ public class Robot implements DomainObject {
             this.checked = checked;
             return this;
         }
+
+        public RobotBuilder withTournamentId(Integer id) {
+            this.tournamentId = id;
+            return this;
+        }
         public Robot build() {
             Robot robot = new Robot();
             robot.setId(id);
@@ -210,6 +226,7 @@ public class Robot implements DomainObject {
             robot.setRfid_uuid(rfid_uuid);
             robot.setRegistered(registered);
             robot.setChecked(checked);
+            robot.setTournamentId(tournamentId);
             return robot;
         }
     }

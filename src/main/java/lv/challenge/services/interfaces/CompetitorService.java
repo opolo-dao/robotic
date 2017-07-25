@@ -48,6 +48,10 @@ public abstract class CompetitorService<T> {
         return new HashMap<>();
     }
 
+    public void updateWithoutValidation(T entity) {
+        dao.update(entity);
+    }
+
     public Map<String, String> validate(T entity, Validator.Purpose purpose) {
         try {
             validator.validate(entity, purpose);

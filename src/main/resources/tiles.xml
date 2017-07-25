@@ -67,7 +67,7 @@
         <put-attribute name="fieldTitle" value="Field"/>
         <put-attribute name="requirementsTitle" value="Robot requirements"/>
         <put-attribute name="procedureTitle" value="Procedure of competition"/>
-        <put-attribute name="pageScripts" value=""/>
+        <put-attribute name="pageScripts" value="/robotic/js/rulesScripts.js"/>
 
     </definition>
     <definition name="sumoRules" extends="rulesLayout">
@@ -76,6 +76,27 @@
         <put-attribute name="field" value="/html/sumo/field_en.html"/>
         <put-attribute name="requirements" value="/html/sumo/requirements_en.html"/>
         <put-attribute name="procedure" value="/html/sumo/procedure_en.html"/>
+    </definition>
+    <definition name="linefollowerRules" extends="rulesLayout">
+        <put-attribute name="definition" value="/html/linefollower/definition_en.html"/>
+        <put-attribute name="conditions" value="/html/linefollower/conditions_en.html"/>
+        <put-attribute name="field" value="/html/linefollower/field_en.html"/>
+        <put-attribute name="requirements" value="/html/linefollower/requirements_en.html"/>
+        <put-attribute name="procedure" value="/html/linefollower/procedure_en.html"/>
+    </definition>
+    <definition name="labyrinthRules" extends="rulesLayout">
+        <put-attribute name="definition" value="/html/labyrinth/definition_en.html"/>
+        <put-attribute name="conditions" value="/html/labyrinth/conditions_en.html"/>
+        <put-attribute name="field" value="/html/labyrinth/field_en.html"/>
+        <put-attribute name="requirements" value="/html/labyrinth/requirements_en.html"/>
+        <put-attribute name="procedure" value="/html/labyrinth/procedure_en.html"/>
+    </definition>
+    <definition name="folkraceRules" extends="rulesLayout">
+        <put-attribute name="definition" value="/html/folkrace/definition_en.html"/>
+        <put-attribute name="conditions" value="/html/folkrace/conditions_en.html"/>
+        <put-attribute name="field" value="/html/folkrace/field_en.html"/>
+        <put-attribute name="requirements" value="/html/folkrace/requirements_en.html"/>
+        <put-attribute name="procedure" value="/html/folkrace/procedure_en.html"/>
     </definition>
     <!-- Errors pages-->
     <definition name="errorPage" extends="defaultLayout">

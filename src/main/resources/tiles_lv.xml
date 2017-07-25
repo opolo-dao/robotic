@@ -69,7 +69,7 @@
         <put-attribute name="fieldTitle" value="Laukums"/>
         <put-attribute name="requirementsTitle" value="Prasības attiecībā uz robotu"/>
         <put-attribute name="procedureTitle" value="Sacensību norises kārtība "/>
-        <put-attribute name="pageScripts" value=""/>
+        <put-attribute name="pageScripts" value="/robotic/js/rulesScripts.js"/>
 
     </definition>
     <definition name="sumoRules" extends="rulesLayout">

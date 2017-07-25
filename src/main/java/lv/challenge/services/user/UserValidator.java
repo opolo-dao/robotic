@@ -24,13 +24,13 @@ public class UserValidator implements Validator<User> {
     @Override
     public void validate(User entity, Purpose purpose) throws ValidationError {
         Map<String, String> errorsMap = new HashMap<>();
-        Optional<User> userOptional = ((UserDAO) dao).findByLogin(entity.getLogin());
-        if (userOptional.isPresent()) {
-            if (purpose == Purpose.CREATE) {
-
+        if (purpose == Purpose.CREATE) {
+            Optional<User> userOptional = ((UserDAO) dao).findByLogin(entity.getLogin());
+            if (userOptional.isPresent()) {
                 errorsMap.put("userLoginErrorMsg", "This login already occupied. Please input different login!");
             }
-            if (errorsMap.size() != 0) throw new TeamValidationException("User object validation error", errorsMap);
         }
+            if (errorsMap.size() != 0) throw new TeamValidationException("User object validation error", errorsMap);
+
     }
 }

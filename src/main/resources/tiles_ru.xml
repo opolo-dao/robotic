@@ -68,7 +68,7 @@
         <put-attribute name="fieldTitle" value="Поле"/>
         <put-attribute name="requirementsTitle" value="Требование к роботу"/>
         <put-attribute name="procedureTitle" value="Порядок проведения состязания"/>
-        <put-attribute name="pageScripts" value=""/>
+        <put-attribute name="pageScripts" value="/robotic/js/rulesScripts.js"/>
 
     </definition>
     <definition name="sumoRules" extends="rulesLayout">

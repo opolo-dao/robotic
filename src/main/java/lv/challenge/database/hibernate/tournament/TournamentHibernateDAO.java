@@ -4,8 +4,12 @@ import lv.challenge.database.TournamentDAO;
 import lv.challenge.domain.competitions.CompetitionType;
 import lv.challenge.domain.competitors.Robot;
 import lv.challenge.domain.competitors.Robot_;
+import lv.challenge.domain.competitors.Team;
+import lv.challenge.domain.competitors.Team_;
 import lv.challenge.domain.tournament.Tournament;
 import lv.challenge.domain.tournament.Tournament_;
+import lv.challenge.domain.users.User;
+import lv.challenge.domain.users.User_;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
@@ -39,12 +44,12 @@ public class TournamentHibernateDAO implements TournamentDAO {
     }
 
     @Override
-    public Optional<Tournament> loadById(int id) {
+    public Optional<Tournament> loadById(Integer id) {
         return getCurrentSession().byId(Tournament.class).loadOptional(id);
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(Integer id) {
         getCurrentSession().delete(loadById(id));
 
     }
@@ -59,6 +64,7 @@ public class TournamentHibernateDAO implements TournamentDAO {
     public void update(Tournament tournament) {
         getCurrentSession().update(tournament);
     }
+
 
     @Override
     public List<Tournament> getAll() {
@@ -133,7 +139,33 @@ public class TournamentHibernateDAO implements TournamentDAO {
         return typedQuery.getSingleResult();
     }
 
+    public List<String> getUniqCountries(Integer tournamentId) {
+        CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
+        CriteriaQuery<String> cq = cb.createQuery(String.class);
+        Root<Robot> robotRoot = cq.from(Robot.class);
+        Join<Team, User> teamUserJoin = robotRoot.join(Robot_.team).join(Team_.user);
+        cq.select(teamUserJoin.get(User_.state)).distinct(true);
+        cq.where(cb.equal(robotRoot.get(Robot_.tournamentId), tournamentId));
+        TypedQuery<String> typedQuery = getCurrentSession().createQuery(cq);
+        return typedQuery.getResultList();
 
+
+    }
+
+    @Override
+    public Optional<Tournament> getActiveTournament() {
+        CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
+        CriteriaQuery<Tournament> cq = cb.createQuery(Tournament.class);
+        Root<Tournament> root = cq.from(Tournament.class);
+        cq.select(root);
+        cq.where(cb.equal(root.get(Tournament_.active), true));
+        TypedQuery<Tournament> query = getCurrentSession().createQuery(cq);
+        try {
+            return Optional.ofNullable(query.getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.ofNullable(null);
+        }
+    }
 
 
 }
