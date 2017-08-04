@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
 <tiles-definitions>
     <definition name="defaultLayout" template="/WEB-INF/tiles/layouts/defaultLayout.jsp">
         <put-attribute name="flag" value="/robotic/pictures/gb.svg"/>
@@ -10,7 +11,30 @@
         <put-attribute name="title" value="RoboChallenge"/>
         <put-attribute name="pageScripts" value=""/>
     </definition>
-
+    <!--About us page-->
+    <definition name="about" extends="defaultLayout">
+        <put-attribute name="title" value="About Us"></put-attribute>
+        <put-attribute name="body" value="/html/about_en.html"/>
+        <put-attribute name="pageScripts" value="/robotic/js/aboutScripts.js"/>
+    </definition>
+    <!-- General rules-->
+    <definition name="generalRules" extends="defaultLayout">
+        <put-attribute name="title" value="General rules"/>
+        <put-attribute name="body" value="/html/generalrules_en.html"/>
+        <put-attribute name="pageScripts" value="/robotic/js/generalRulesScripts.js"/>
+    </definition>
+    <!--Match Tables page-->
+    <definition name="matchTable" extends="defaultLayout">
+        <put-attribute name="title" value="Match table"/>
+        <put-attribute name="body" expression="${competition}"/>
+        <put-attribute name="pageScripts" value="/robotic/js/matchTablesScripts.js"/>
+    </definition>
+    <!--Match Tables page-->
+    <definition name="agenda" extends="defaultLayout">
+        <put-attribute name="title" value="Match table"/>
+        <put-attribute name="body" expression="${agenda}"/>
+        <put-attribute name="pageScripts" value="/robotic/js/agendaScripts.js"/>
+    </definition>
     <!-- Home Page -->
     <definition name="home" extends="defaultLayout">
         <put-attribute name="title" value="Welcome"/>
@@ -122,10 +146,6 @@
         <put-attribute name="body" value="/WEB-INF/jsp/createTournament.jsp"/>
         <put-attribute name="pageScripts" value="/robotic/js/createTournament.js"/>
     </definition>
-    <!--   <definition name="robotToCheck" extends="participantsTables">
-           <put-attribute name="body" value="/WEB-INF/jsp/robotsToCheck.jsp"/>
-           <put-attribute name="pageScripts" value="/robotic/js/robotsToCheck.js"/>
-       </definition>-->
 
 
     <definition name="participantsTables" template="/WEB-INF/tiles/layouts/tablesPageLayout.jsp">

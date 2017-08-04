@@ -6,7 +6,6 @@ import lv.challenge.domain.users.User;
 import lv.challenge.domain.users.UserRole;
 import lv.challenge.services.interfaces.CompetitorService;
 import lv.challenge.services.interfaces.Validator;
-import lv.challenge.services.mail.RegistrationConfirmEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -24,14 +22,16 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+//import lv.challenge.services.mail.RegistrationConfirmEmail;
+
 /**
  * Created by Daniil on 15.05.2017.
  */
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
-    @Autowired
-    private RegistrationConfirmEmail sendHtmlEmailService;
+    //    @Autowired
+//    private RegistrationConfirmEmail sendHtmlEmailService;
     @Autowired
     private CompetitorService<Team> teamService;
     @Autowired
@@ -91,11 +91,11 @@ public class RegistrationController {
         user.setTeam(team);
         userService.saveWithoutValidation(user);
         //send registration email
-        try {
+/*        try {
             sendHtmlEmailService.sendEmail(info.email, "attachments/log.txt"); //type null if don't need attachment
         } catch (MessagingException e) {
             e.printStackTrace();
-        }
+        }*/
         return "redirect:menu";
     }
 

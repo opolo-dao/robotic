@@ -1,5 +1,6 @@
-package lv.challenge.SpringConfigClasses;
+package lv.challenge.SpringContext;
 
+import lv.challenge.application.ApplicationService;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,7 +25,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("lv.challenge")
+@ComponentScan({"lv.challenge.domain", "lv.challenge.application", "lv.challenge.services", "lv.challenge.database", "lv.challenge.SpringConfigClasses"})
 public class SpringConfig {
     private static final String DATABASE_PROPERTIES_FILE = "database.properties";
     @Bean
@@ -86,5 +87,10 @@ public class SpringConfig {
     @Bean
     public PlatformTransactionManager transactionManager(SessionFactory sessionFactory) {
         return new HibernateTransactionManager(sessionFactory);
+    }
+
+    @Bean(name = "appService")
+    public ApplicationService applicationService() {
+        return new ApplicationService();
     }
 }

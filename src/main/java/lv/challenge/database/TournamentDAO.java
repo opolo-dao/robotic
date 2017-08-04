@@ -29,13 +29,17 @@ public interface TournamentDAO {
 
     List<Robot> getAllRobots();
 
-    List<Robot> getCompetitionRobots(CompetitionType competition);
+    List<Robot> getCompetitionRobots(CompetitionType competition, Integer tournamentId);
 
     List<Robot> getRobotsToAccept();
 
     Long getNumberOfRobotsToCheck();
 
     List<String> getUniqCountries(Integer tournamentId);
+
+    Long getRobotsCount(Integer tournamentId);
+
+    Long getParticipantsCount(Integer tournamentId);
 
     Optional<Tournament> getActiveTournament();
 }

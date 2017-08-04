@@ -18,6 +18,7 @@ import javax.persistence.*;
 @Component
 @Scope("prototype")
 public class Contact implements DomainObject {
+
     @Expose
     @Column(name = "phone")
     String phoneNumber;

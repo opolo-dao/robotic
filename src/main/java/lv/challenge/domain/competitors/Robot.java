@@ -20,6 +20,9 @@ import java.util.Set;
 @Component
 @Scope("prototype")
 public class Robot implements DomainObject {
+    public Robot() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)

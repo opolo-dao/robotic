@@ -10,7 +10,17 @@
         <put-attribute name="title" value="Привет"/>
         <put-attribute name="pageScripts" value=""/>
     </definition>
-
+    <definition name="about" extends="defaultLayout">
+        <put-attribute name="title" value="О нас..."></put-attribute>
+        <put-attribute name="body" value="/html/about_ru.html"/>
+        <put-attribute name="pageScripts" value="/robotic/js/aboutScripts.js"/>
+    </definition>
+    <!-- General rules-->
+    <definition name="generalRules" extends="defaultLayout">
+        <put-attribute name="title" value="Правила турнира"/>
+        <put-attribute name="body" value="/html/generalrules_ru.html"/>
+        <put-attribute name="pageScripts" value="/robotic/js/generalRulesScripts.js"/>
+    </definition>
     <!-- Home Page -->
     <definition name="home" extends="defaultLayout">
         <put-attribute name="title" value="Привет всем"/>

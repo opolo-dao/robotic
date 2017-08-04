@@ -30,4 +30,9 @@ public class RulesController {
     public String getFolkraceRules(Model model) {
         return "folkraceRules";
     }
+
+    @GetMapping("/general")
+    public String getGeneralRules(Model model) {
+        return "generalRules";
+    }
 }

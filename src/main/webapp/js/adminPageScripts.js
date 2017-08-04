@@ -25,7 +25,14 @@ $(function () {
     }
 
     getTournamentMenu();
-
+    $("#uploadPicture").on("click", function () {
+        jQuery.get({
+            "url": "/robotic/admin/uploadpicture",
+            "success": function (data) {
+                $("#menuBody").html(data);
+            }
+        })
+    })
     $("#robotsToCheck").on('click', function () {
         jQuery.get("/robotic/admin/checkrobots", function (data) {
             $("#menuBody").html(data);

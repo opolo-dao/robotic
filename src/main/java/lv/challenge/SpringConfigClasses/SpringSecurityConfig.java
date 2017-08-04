@@ -3,9 +3,11 @@ package lv.challenge.SpringConfigClasses;
 import lv.challenge.domain.users.UserRole;
 import lv.challenge.servlets.security.LoginSuccesHandler;
 import lv.challenge.servlets.security.MyUserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -34,6 +36,13 @@ public class SpringSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
+    }
     @Configuration
     @Order(1)
     public static class FieldControllersPartConfig extends WebSecurityConfigurerAdapter {
@@ -58,10 +67,17 @@ public class SpringSecurityConfig {
     @Configuration
     @Order(2)
     public static class CommonPartConfig extends WebSecurityConfigurerAdapter {
-/*        @Override
+        @Autowired
+        DaoAuthenticationProvider daoAuthenticationProvider;
+
+        @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.userDetailsService(userDetailsService());
-        }*/
+            auth.inMemoryAuthentication()
+                    .withUser("admin")
+                    .password("123")
+                    .roles("ADMIN");
+            auth.authenticationProvider(daoAuthenticationProvider);
+        }
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -78,7 +94,9 @@ public class SpringSecurityConfig {
                     .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/login?logout").deleteCookies("JSESSIONID")
-                    .invalidateHttpSession(true);
+                    .invalidateHttpSession(true)
+                    .and()
+                    .csrf().disable();
             http.addFilterBefore(charFilter, CsrfFilter.class);
         }
     }

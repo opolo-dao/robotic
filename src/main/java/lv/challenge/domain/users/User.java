@@ -17,6 +17,8 @@ import java.util.Set;
 @Table(name = "users", schema = "registration")
 @OptimisticLocking(type = OptimisticLockType.VERSION)
 public class User implements DomainObject {
+    public User() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

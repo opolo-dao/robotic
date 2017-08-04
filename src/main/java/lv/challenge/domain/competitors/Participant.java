@@ -19,6 +19,9 @@ import java.util.Set;
 @Component
 @Scope("prototype")
 public class Participant implements DomainObject {
+    public Participant() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)

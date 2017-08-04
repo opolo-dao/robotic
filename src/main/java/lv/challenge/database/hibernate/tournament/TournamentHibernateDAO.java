@@ -2,10 +2,7 @@ package lv.challenge.database.hibernate.tournament;
 
 import lv.challenge.database.TournamentDAO;
 import lv.challenge.domain.competitions.CompetitionType;
-import lv.challenge.domain.competitors.Robot;
-import lv.challenge.domain.competitors.Robot_;
-import lv.challenge.domain.competitors.Team;
-import lv.challenge.domain.competitors.Team_;
+import lv.challenge.domain.competitors.*;
 import lv.challenge.domain.tournament.Tournament;
 import lv.challenge.domain.tournament.Tournament_;
 import lv.challenge.domain.users.User;
@@ -18,10 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -109,11 +103,11 @@ public class TournamentHibernateDAO implements TournamentDAO {
     }
 
     @Override
-    public List<Robot> getCompetitionRobots(CompetitionType competition) {
+    public List<Robot> getCompetitionRobots(CompetitionType competition, Integer tournamentId) {
         CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
         CriteriaQuery<Robot> cq = cb.createQuery(Robot.class);
         Root<Robot> robotRoot = cq.from(Robot.class);
-        cq.where(cb.and(cb.isMember(competition, robotRoot.get(Robot_.competitions)), cb.equal(robotRoot.get(Robot_.checked), true)));
+        cq.where(cb.and(cb.isMember(competition, robotRoot.get(Robot_.competitions)), cb.equal(robotRoot.get(Robot_.checked), true), cb.equal(robotRoot.get(Robot_.tournamentId), tournamentId)));
         Query query = getCurrentSession().createQuery(cq);
         return query.getResultList();
     }
@@ -148,8 +142,29 @@ public class TournamentHibernateDAO implements TournamentDAO {
         cq.where(cb.equal(robotRoot.get(Robot_.tournamentId), tournamentId));
         TypedQuery<String> typedQuery = getCurrentSession().createQuery(cq);
         return typedQuery.getResultList();
+    }
 
+    @Override
+    public Long getRobotsCount(Integer tournamentId) {
+        CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<Robot> robotRoot = cq.from(Robot.class);
+        cq.select(cb.count(robotRoot));
+        cq.where(cb.equal(robotRoot.get(Robot_.tournamentId), tournamentId));
+        TypedQuery<Long> typedQuery = getCurrentSession().createQuery(cq);
+        return typedQuery.getSingleResult();
+    }
 
+    @Override
+    public Long getParticipantsCount(Integer tournamentId) {
+        CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<Robot> robotRoot = cq.from(Robot.class);
+        SetJoin<Participant, Robot> robotParticipantJoin = robotRoot.join(Robot_.operators).join(Participant_.robots);
+        cq.select(cb.count(robotParticipantJoin)).distinct(true);
+        cq.where(cb.equal(robotRoot.get(Robot_.tournamentId), tournamentId));
+        TypedQuery<Long> typedQuery = getCurrentSession().createQuery(cq);
+        return typedQuery.getSingleResult();
     }
 
     @Override

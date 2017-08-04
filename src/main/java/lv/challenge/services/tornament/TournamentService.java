@@ -52,7 +52,7 @@ public class TournamentService {
     }
 
     public List<List<String>> getCompetitionRobots(CompetitionType competition) {
-        return prepareTable(dao.getCompetitionRobots(competition), false);
+        return prepareTable(dao.getCompetitionRobots(competition, appService.getActiveTournament().getId()), false);
     }
 
     public List<List<String>> getRobotsToAccept() {

@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 /**
@@ -64,5 +69,23 @@ public class AdminServiceController {
         model.addAttribute("tournamentsList", tournamentService.getAll());
         model.addAttribute("countries", tournamentService.getTournamentStatistic(appService.getActiveTournament().getId()).get("countries"));
         return "tournamentsSettings";
+    }
+
+    @GetMapping("/uploadpicture")
+    public String uploadPicture() {
+        return "uploadPicture";
+    }
+
+    @PostMapping("/upload")
+    public String handleFormUpload(@RequestParam MultipartFile file,
+                                   @RequestParam String name,
+                                   HttpServletRequest req) {
+        String originalFilename = file.getOriginalFilename();
+        try (FileOutputStream fos = new FileOutputStream(appService.SAVE_PATH + File.separator + "/pictures/" + name + originalFilename.substring(originalFilename.lastIndexOf(".")))) {
+            fos.write(file.getBytes());
+        } catch (IOException e) {
+            System.out.println("cant upload picture");
+        }
+        return "home";
     }
 }

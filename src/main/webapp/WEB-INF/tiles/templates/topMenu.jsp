@@ -1,5 +1,6 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="navbar-header">
     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
             aria-expanded="false" aria-controls="navbar">
@@ -57,7 +58,7 @@
                 <li><a href="/robotic/photos">Photos</a></li>
             </ul>
         </li>
-        <li><a href="/robotic/about">Agenda</a></li>
+        <li><a href="/robotic/agenda">Agenda</a></li>
         <li><a href="/robotic/about">About us</a></li>
 
     </ul>

@@ -16,6 +16,7 @@ import java.util.Set;
 /**
  * Created by Daniil on 11.05.2017.
  */
+
 public abstract class CompetitorsHibernateDAO<T> {
     private Class<T> objectClass;
 
@@ -38,6 +39,7 @@ public abstract class CompetitorsHibernateDAO<T> {
 
 
     public Optional<T> getById(int id) {
+        System.out.println("hello");
         return Optional.ofNullable(getCurrentSession().get(objectClass,id));
     }
     public Optional<T> loadById(int id){

@@ -20,7 +20,10 @@ import java.util.Set;
 @Component
 @Scope("prototype")
 public class Team  implements DomainObject {
-        @Id
+    public Team() {
+    }
+
+    @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id", updatable = false, nullable = false)
         private int id;
