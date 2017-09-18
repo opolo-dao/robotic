@@ -2,22 +2,22 @@ package lv.challenge.servlets.mvc.controllers;
 
 import lv.challenge.application.ApplicationService;
 import lv.challenge.domain.competitors.Robot;
+import lv.challenge.services.common.HTMLStoreService;
 import lv.challenge.services.interfaces.CompetitorService;
 import lv.challenge.services.robot.RobotService;
 import lv.challenge.services.tornament.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -32,6 +32,8 @@ public class AdminRestController {
     CompetitorService<Robot> robotService;
     @Autowired
     ApplicationService appService;
+    @Autowired
+    HTMLStoreService htmlStoreService;
 
     @GetMapping("/robotstochecklist")
     @ResponseBody
@@ -47,11 +49,24 @@ public class AdminRestController {
         ((RobotService) robotService).setRobotChecked(id);
     }
 
+    @PostMapping("/commentrobot")
+    protected void commentRobot(@RequestParam int id,
+                                @RequestParam String comment) {
+        ((RobotService) robotService).setRobotComment(id, comment);
+    }
+
     @GetMapping("/gettournamentstatistic")
     @ResponseBody
-    protected Map<String, List<String>> getTournamentStatistic(
+    protected Map<String, Object> getTournamentStatistic(
             @RequestParam Integer tournamentId) {
         return tournamentService.getTournamentStatistic(tournamentId);
+    }
+
+    @GetMapping("/setactivetournament")
+    @ResponseStatus(HttpStatus.OK)
+    protected void setActiveTournament(HttpServletResponse resp,
+                                       @RequestParam Integer tournamentId) throws IOException {
+        tournamentService.setActiveTournament(tournamentId);
     }
 
     @PostMapping("/updaterules")
@@ -61,51 +76,52 @@ public class AdminRestController {
 
         String referer = req.getHeader(HttpHeaders.REFERER);
         String competitionName = referer.substring(referer.lastIndexOf("/") + 1);
-        writeToHTMLFileStore(text, competitionName + File.separator + part);
+        htmlStoreService.writeToHTMLFileStore(text, competitionName + File.separator + part, LocaleContextHolder.getLocale());
+    }
+
+    @PostMapping("/updateaboutcompetitions")
+    protected void updateAboutCompetition(@RequestParam String text,
+                                          HttpServletRequest req) {
+        String referer = req.getHeader(HttpHeaders.REFERER);
+        String competitionName = referer.substring(referer.lastIndexOf("/") + 1);
+        htmlStoreService.writeToHTMLFileStore(text, "aboutCompetitions" + File.separator + competitionName, LocaleContextHolder.getLocale());
     }
 
     @PostMapping("/updateabout")
     protected void updateAbout(@RequestParam String text) {
-        writeToHTMLFileStore(text, "about");
+        htmlStoreService.writeToHTMLFileStore(text, "about", LocaleContextHolder.getLocale());
     }
 
     @PostMapping("/updateagenda")
     protected void updateAgenda(@RequestParam String text) {
-        writeToHTMLFileStore(text, "agenda");
+        htmlStoreService.writeToHTMLFileStore(text, "agenda", LocaleContextHolder.getLocale());
     }
 
+    @PostMapping("/updatehome")
+    protected void updateHome(@RequestParam String text) {
+        htmlStoreService.writeToHTMLFileStore(text, "home", LocaleContextHolder.getLocale());
+    }
     @PostMapping("/updategeneralrules")
     protected void updateGeneralRules(@RequestParam String text) {
 
-        writeToHTMLFileStore(text, "generalrules");
+        htmlStoreService.writeToHTMLFileStore(text, "generalrules", LocaleContextHolder.getLocale());
     }
 
-    @PostMapping("/updatematchtable")
+    @PostMapping("/updatefooter")
+    protected void updateFooter(@RequestParam String text) {
+        htmlStoreService.writeToHTMLFileStore(text, "footer", LocaleContextHolder.getLocale());
+    }
+
+    @PostMapping("/updateresults")
     protected void updateRule(@RequestParam String text,
                               HttpServletRequest req) {
 
         String referer = req.getHeader(HttpHeaders.REFERER);
-        String competitionName = referer.substring(referer.lastIndexOf("/") + 1);
-        writeToHTMLFileStore(text, "matchtables" + File.separator + competitionName);
+        String[] paths = referer.split("/");
+        String competitionName = paths[paths.length - 1];
+        String tournamentId = paths[paths.length - 2];
+        htmlStoreService.writeToHTMLFileStore(text, "results" + File.separator + tournamentId + "_" + competitionName, LocaleContextHolder.getLocale());
     }
 
-    private void writeToHTMLFileStore(String data, String filename) {
-        Locale locale = LocaleContextHolder.getLocale();
-        StringBuilder file = new StringBuilder();
-        file.append(appService.SAVE_PATH);
-        file.append(File.separator);
-        file.append("html");
-        file.append(File.separator);
-        file.append(filename);
-        file.append("_");
-        file.append(locale.getLanguage());
-        file.append(".html");
-        try (FileOutputStream fos = new FileOutputStream(file.toString())) {
-            fos.write(data.getBytes());
-        } catch (FileNotFoundException e) {
-            System.out.println("Cant open html file to rewrite");
-        } catch (IOException e) {
-            System.out.println("Can't write to html file");
-        }
-    }
+
 }

@@ -25,7 +25,8 @@
 </div>
 <footer id="footer" class="footer center-block">
     <div class="container">
-        <tiles:insertAttribute name="footer"/>
+        <tiles:importAttribute name="footer"/>
+        <c:import url="${footer}" charEncoding="utf-8"/>
     </div>
 </footer>
 <tiles:importAttribute scope="request" name="pageScripts"/>

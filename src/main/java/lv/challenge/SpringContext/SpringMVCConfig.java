@@ -19,6 +19,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
+import javax.servlet.jsp.JspFactory;
 import java.io.File;
 import java.util.List;
 import java.util.Locale;
@@ -37,6 +38,7 @@ public class SpringMVCConfig extends WebMvcConfigurerAdapter {
         InternalResourceViewResolver internalViewResolver = new InternalResourceViewResolver();
         internalViewResolver.setPrefix("/WEB-INF/jsp/");
         internalViewResolver.setSuffix(".jsp");
+        tilesViewResolver.setExposedContextBeanNames("appService");
         tilesViewResolver.setOrder(0);
         internalViewResolver.setOrder(1);
         registry.viewResolver(tilesViewResolver);
@@ -87,9 +89,9 @@ public class SpringMVCConfig extends WebMvcConfigurerAdapter {
     @Bean
     public TilesConfigurer tilesConfigurer() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         //Embedded tomcat purpose only
-        /*if (JspFactory.getDefaultFactory() == null) {
+        if (JspFactory.getDefaultFactory() == null) {
             JspFactory.setDefaultFactory((JspFactory) Class.forName("org.apache.jasper.runtime.JspFactoryImpl").newInstance());
-        }*/
+        }
         TilesConfigurer tilesConfigurer = new TilesConfigurer();
         tilesConfigurer.setDefinitions("classpath:tiles.xml");
         tilesConfigurer.setCheckRefresh(true);

@@ -12,8 +12,8 @@
     <title><tiles:getAsString name="title"/></title>
     <link rel="stylesheet" href="/robotic/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/robotic/css/myStyles.css"/>
-    <sec:authorize access="hasRole('ADMIN')">
-        <security:csrfMetaTags/>
+    <sec:authorize access="hasAnyRole('ADMIN', 'HTML_EDITOR')">
+        <link rel="stylesheet" href="/robotic/css/bootstrap-datetimepicker.min.css"/>
     </sec:authorize>
 </head>
 <body>
@@ -34,16 +34,23 @@
     </div>
 </div>
 <footer id="footer" class="footer center-block">
-    <div class="container">
-        <tiles:insertAttribute name="footer"/>
+    <sec:authorize access="hasRole('HTML_EDITOR')">
+        <button class="button" id="editFooter" value="about">Edit</button>
+    </sec:authorize>
+    <div id="footerText" class="container">
+        <tiles:importAttribute name="footer"/>
+        <c:import url="${footer}" charEncoding="utf-8"/>
     </div>
 </footer>
 <tiles:importAttribute scope="request" name="pageScripts"/>
 <script src="/robotic/js/jquery-3.2.1.min.js"></script>
 <script src="/robotic/js/bootstrap.min.js"></script>
-<sec:authorize access="hasRole('ADMIN')">
+<sec:authorize access="hasAnyRole('ADMIN', 'HTML_EDITOR')">
     <script src="/robotic/ckeditor/ckeditor.js"></script>
+    <script src="/robotic/js/moment-with-locales.js"></script>
+    <script src="/robotic/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="${pageScripts}"></script>
 </sec:authorize>
-<script src="${pageScripts}"></script>
+
 </body>
 </html>

@@ -1,5 +1,6 @@
 package lv.challenge.domain.competitors;
 
+import com.google.gson.annotations.Expose;
 import lv.challenge.domain.DomainObject;
 import lv.challenge.domain.competitions.CompetitionType;
 import org.hibernate.annotations.OptimisticLockType;
@@ -26,11 +27,13 @@ public class Robot implements DomainObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
+    @Expose
     int id;
     @Column(name = "name", unique = true, nullable = false)
+    @Expose
     String name;
-    @Column(name="rfid_uuid")
-    String rfid_uuid;
+    @Column(name = "registerednumber", unique = true)
+    Integer registeredNumber;
     @Column(name = "checked", nullable = false)
     boolean checked;
     @Version
@@ -43,7 +46,7 @@ public class Robot implements DomainObject {
     )
     Set<Participant> operators = new HashSet<>();
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="teamid")
+    @JoinColumn(name = "teamid")
     Team team;
     @ElementCollection
     Set<CompetitionType> competitions = new HashSet<>();
@@ -51,6 +54,16 @@ public class Robot implements DomainObject {
     private boolean registered;
     @Column(name = "tournamentId")
     private Integer tournamentId;
+    @Column(name = "adminComment")
+    String adminComment;
+
+    public String getAdminComment() {
+        return adminComment;
+    }
+
+    public void setAdminComment(String adminComment) {
+        this.adminComment = adminComment;
+    }
 
     public Integer getTournamentId() {
         return tournamentId;
@@ -58,14 +71,6 @@ public class Robot implements DomainObject {
 
     public void setTournamentId(Integer tournamentId) {
         this.tournamentId = tournamentId;
-    }
-
-    public boolean isRegistered() {
-        return registered;
-    }
-
-    public void setRegistered(boolean registered) {
-        this.registered = registered;
     }
 
     public Team getTeam() {
@@ -116,12 +121,12 @@ public class Robot implements DomainObject {
         this.name = name;
     }
 
-    public String getRfid_uuid() {
-        return rfid_uuid;
+    public Integer getRegistered_number() {
+        return registeredNumber;
     }
 
-    public void setRfid_uuid(String rfid_uuid) {
-        this.rfid_uuid = rfid_uuid;
+    public void setRegistered_number(Integer number) {
+        this.registeredNumber = number;
     }
 
     public boolean isChecked() {
@@ -157,13 +162,13 @@ public class Robot implements DomainObject {
         int id;
         String name;
         int version;
-        String rfid_uuid;
+        Integer registeredNumber;
         Set<Participant> operators = new HashSet<>();
         Team team;
         Set<CompetitionType> competitions = new HashSet<>();
-        boolean registered;
         boolean checked;
         Integer tournamentId;
+
         private RobotBuilder() {
         }
 
@@ -173,10 +178,6 @@ public class Robot implements DomainObject {
 
         public RobotBuilder withId(int id) {
             this.id = id;
-            return this;
-        }
-        public RobotBuilder withRfidUUID(String uuid){
-            this.rfid_uuid = uuid;
             return this;
         }
 
@@ -204,10 +205,7 @@ public class Robot implements DomainObject {
             this.competitions = competitions;
             return this;
         }
-        public RobotBuilder withRegistred(boolean registered) {
-            this.registered = registered;
-            return this;
-        }
+
 
         public RobotBuilder withChecked(boolean checked) {
             this.checked = checked;
@@ -218,6 +216,7 @@ public class Robot implements DomainObject {
             this.tournamentId = id;
             return this;
         }
+
         public Robot build() {
             Robot robot = new Robot();
             robot.setId(id);
@@ -226,8 +225,7 @@ public class Robot implements DomainObject {
             robot.setOperators(operators);
             robot.setTeam(team);
             robot.setCompetitions(competitions);
-            robot.setRfid_uuid(rfid_uuid);
-            robot.setRegistered(registered);
+            robot.setRegistered_number(registeredNumber);
             robot.setChecked(checked);
             robot.setTournamentId(tournamentId);
             return robot;

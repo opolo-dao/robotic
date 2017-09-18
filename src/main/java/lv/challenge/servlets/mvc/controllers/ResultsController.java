@@ -14,8 +14,8 @@ import java.util.Set;
 
 
 @Controller
-@RequestMapping("/tables")
-public class MatchTablesController {
+@RequestMapping("/results")
+public class ResultsController {
     private Set<String> competitionsList = new HashSet<String>() {{
         add("sumo");
         add("linefollower");
@@ -23,14 +23,17 @@ public class MatchTablesController {
         add("labyrinth");
     }};
 
-    @GetMapping("/{competition}")
-    public String getSumoTable(@PathVariable String competition, Model model, HttpServletResponse resp) {
+    @GetMapping("/{tournament}/{competition}")
+    public String getResult(@PathVariable String competition,
+                            @PathVariable String tournament,
+                            Model model,
+                            HttpServletResponse resp) {
         if (!competitionsList.contains(competition)) {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return "home";
         }
         Locale locale = LocaleContextHolder.getLocale();
-        model.addAttribute("competition", "/html/matchtables/" + competition + "_" + locale.getLanguage() + ".html");
-        return "matchTable";
+        model.addAttribute("competition", "/html/results/" + tournament + "_" + competition + "_" + locale.getLanguage() + ".html");
+        return "results";
     }
 }

@@ -27,9 +27,11 @@ public interface TournamentDAO {
 
     Optional<Tournament> getByName(String name);
 
-    List<Robot> getAllRobots();
+    List<Robot> getAllRobots(Integer tournamentId);
 
     List<Robot> getCompetitionRobots(CompetitionType competition, Integer tournamentId);
+
+    Long getCompetitionRobotsCount(CompetitionType competition, Integer tournamentId);
 
     List<Robot> getRobotsToAccept();
 
@@ -40,6 +42,8 @@ public interface TournamentDAO {
     Long getRobotsCount(Integer tournamentId);
 
     Long getParticipantsCount(Integer tournamentId);
+
+    Long getTeamsCount(Integer tournamentId);
 
     Optional<Tournament> getActiveTournament();
 }

@@ -8,6 +8,9 @@
     <input name="name"/>
     <input type="file" name="file" accept="image/*"/>
     <input type="submit"/>
+    <input type="hidden"
+           name="${_csrf.parameterName}"
+           value="${_csrf.token}"/>
 </form>
 </body>
 </html>

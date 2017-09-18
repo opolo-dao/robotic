@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,12 +32,12 @@ public class TeamValidator implements Validator<Team> {
                 errorsMap.put("teamNameErrorMsg", "This team name already exist. Please input different team name!");
         }
         if (purpose == Purpose.UPDATE) {
-            Team teamFromBase = dao.getByFieldValue("name",entity.getName()).get(0);
-            if(teamFromBase != null){
-                if(teamFromBase.getId()!=entity.getId()){
+            List<Team> teamList = dao.getByFieldValue("name", entity.getName());
+            if (!teamList.isEmpty()) {
+                if (teamList.get(0).getId() != entity.getId()) {
                     errorsMap.put("teamNameErrorMsg", "This team name already exist. Please input different team name!");
                 }
-                dao.removeFromSessionCache(teamFromBase);
+                dao.removeFromSessionCache(teamList.get(0));
             }
         }
         if (errorsMap.size() != 0) throw new TeamValidationException("Team object validation error", errorsMap);

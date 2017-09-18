@@ -120,7 +120,8 @@
 
 <footer id="footer" class="footer">
     <div class="container">
-        <tiles:insertAttribute name="footer"/>
+        <tiles:importAttribute name="footer"/>
+        <c:import url="${footer}" charEncoding="utf-8"/>
     </div>
 </footer>
 <script src="/robotic/js/jquery-3.2.1.min.js"></script>

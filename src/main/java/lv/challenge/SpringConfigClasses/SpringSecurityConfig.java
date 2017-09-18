@@ -1,7 +1,7 @@
 package lv.challenge.SpringConfigClasses;
 
 import lv.challenge.domain.users.UserRole;
-import lv.challenge.servlets.security.LoginSuccesHandler;
+import lv.challenge.servlets.security.LoginSuccessHandler;
 import lv.challenge.servlets.security.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -75,7 +75,19 @@ public class SpringSecurityConfig {
             auth.inMemoryAuthentication()
                     .withUser("admin")
                     .password("123")
-                    .roles("ADMIN");
+                    .roles("ADMIN")
+                    .and()
+                    .withUser("lf_operator")
+                    .password("123")
+                    .roles("LF_OPERATOR", "OPERATOR")
+                    .and()
+                    .withUser("registrar")
+                    .roles("REGISTRAR", "OPERATOR")
+                    .password("123")
+                    .and()
+                    .withUser("html")
+                    .roles("HTML_EDITOR")
+                    .password("html");
             auth.authenticationProvider(daoAuthenticationProvider);
         }
 
@@ -86,17 +98,19 @@ public class SpringSecurityConfig {
                     .antMatchers("/", "/login", "/css/**", "/js/**", "/pictures/**").permitAll()
                     .antMatchers("/admin/**").hasRole(UserRole.ADMIN.toString())
                     .antMatchers("/menu/**").hasRole(UserRole.TEAM_OWNER.toString())
+                    .antMatchers("/operator/lf/**").hasAnyRole(UserRole.LF_OPERATOR.toString(), UserRole.ADMIN.toString())
+                    .antMatchers("/operator/**").hasAnyRole(UserRole.OPERATOR.toString(), UserRole.ADMIN.toString())
+                    .antMatchers("/operator/registrar/**").hasAnyRole(UserRole.REGISTRAR.toString(), UserRole.ADMIN.toString())
+                    .antMatchers("/HTML_editor/**").hasRole(UserRole.HTML_EDITOR.toString())
                     .and()
                     .formLogin()
-                    .loginPage("/login").successHandler(new LoginSuccesHandler())
+                    .loginPage("/login").successHandler(new LoginSuccessHandler())
                     .permitAll()
                     .and()
                     .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/login?logout").deleteCookies("JSESSIONID")
-                    .invalidateHttpSession(true)
-                    .and()
-                    .csrf().disable();
+                    .invalidateHttpSession(true);
             http.addFilterBefore(charFilter, CsrfFilter.class);
         }
     }

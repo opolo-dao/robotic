@@ -4,20 +4,17 @@ import lv.challenge.application.ApplicationService;
 import lv.challenge.domain.tournament.Tournament;
 import lv.challenge.services.tornament.TournamentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 /**
  * Created by Daniil on 11.06.2017.
@@ -30,6 +27,8 @@ public class AdminServiceController {
     TournamentService tournamentService;
     @Autowired
     ApplicationService appService;
+    @Autowired
+    ApplicationContext applicationContext;
 
     @GetMapping
     public String getAdminPage(Model model) {
@@ -40,20 +39,14 @@ public class AdminServiceController {
 
     @GetMapping("/createtournament")
     public String getCreateTournamentPage(Model model) {
+        Tournament tournament = applicationContext.getBean(Tournament.class);
+        model.addAttribute("tournament", tournament);
         return "createTournament";
     }
 
     @PostMapping("/createtournament")
-    public String createTournament(@RequestParam("name") String name,
-                                   @RequestParam("eventDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime eventDateTime,
-                                   @RequestParam("startRegistration") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startRegistration,
-                                   @RequestParam("endRegistration") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endRegistration) {
-        Tournament tournament = Tournament.TournamentBuilder.createTournament()
-                .withEventDateTime(eventDateTime)
-                .withEndRegistrationDateTime(endRegistration)
-                .withStartRegistrationDateTime(startRegistration)
-                .withName(name)
-                .build();
+    public String createTournament(@ModelAttribute Tournament tournament,
+                                   BindingResult result) {
         tournamentService.save(tournament);
         tournamentService.setActiveTournament(tournament.getId());
         return "redirect:/admin#info";
@@ -64,11 +57,10 @@ public class AdminServiceController {
         return "robotsToCheck";
     }
 
-    @GetMapping("/tournamentssettings")
-    public String getTournamentsSettings(Model model) {
+    @GetMapping("/tournamentsinfo")
+    public String getTournamentsInfo(Model model) {
         model.addAttribute("tournamentsList", tournamentService.getAll());
-        model.addAttribute("countries", tournamentService.getTournamentStatistic(appService.getActiveTournament().getId()).get("countries"));
-        return "tournamentsSettings";
+        return "tournamentsInfo";
     }
 
     @GetMapping("/uploadpicture")
@@ -86,6 +78,6 @@ public class AdminServiceController {
         } catch (IOException e) {
             System.out.println("cant upload picture");
         }
-        return "home";
+        return "adminMenu";
     }
 }

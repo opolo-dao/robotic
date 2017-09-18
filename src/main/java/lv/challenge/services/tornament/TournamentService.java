@@ -48,7 +48,7 @@ public class TournamentService {
     }
 
     public List<List<String>> getAllCompetitors() {
-        return prepareTable(dao.getAllRobots(), false);
+        return prepareTable(dao.getAllRobots(appService.getActiveTournament().getId()), false);
     }
 
     public List<List<String>> getCompetitionRobots(CompetitionType competition) {
@@ -88,9 +88,17 @@ public class TournamentService {
         return dao.getNumberOfRobotsToCheck();
     }
 
-    public Map<String, List<String>> getTournamentStatistic(Integer tournamentId) {
-        Map<String, List<String>> stats = new HashMap<>();
+    public Map<String, Object> getTournamentStatistic(Integer tournamentId) {
+        Map<String, Object> stats = new HashMap<>();
         stats.put("countries", dao.getUniqCountries(tournamentId));
+        stats.put("robots", dao.getRobotsCount(tournamentId));
+        stats.put("participants", dao.getParticipantsCount(tournamentId));
+        stats.put("teams", dao.getTeamsCount(tournamentId));
+        Map<String, Long> competitionsRobots = new HashMap<>();
+        for (CompetitionType comp : CompetitionType.values()) {
+            competitionsRobots.put(comp.toString(), dao.getCompetitionRobotsCount(comp, tournamentId));
+        }
+        stats.put("competitionsRobots", competitionsRobots);
         return stats;
     }
 

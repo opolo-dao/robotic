@@ -10,7 +10,6 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 
 
@@ -24,15 +23,6 @@ public class TeamService extends CompetitorService<Team> {
                     Validator<Team> validator){
  this.dao = competitorsDAO;
  this.validator = validator;
- }
- public Optional<Integer> authorize(String name, String password){
-  List<Team> list = dao.getByFieldValue("name",name);
-  Integer teamid = null;
-  Optional<Integer> result = Optional.ofNullable(teamid);
-  return result;
- }
- public List<Team> getRobotsList(int teamid){
-  return dao.getByTeamId(teamid);
  }
 
  @Override

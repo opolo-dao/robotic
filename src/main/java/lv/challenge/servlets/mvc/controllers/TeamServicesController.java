@@ -65,6 +65,7 @@ public class TeamServicesController {
         }
         model.addAttribute("team", team);
         model.addAttribute("user", user);
+        model.addAttribute("activeTournament", appService.getActiveTournament());
         session.setAttribute("teamid", team.getId());
         return "teamMenu";
     }
@@ -110,6 +111,9 @@ public class TeamServicesController {
         teamService.updateWithoutValidation(user.getTeam());
         contactService.updateWithoutValidation(user.getContact());
         userService.updateWithoutValidation(user);
+        for (Robot robot : user.getTeam().getRobots()) {
+            robot.setChecked(false);
+        }
         return "redirect:/menu#info";
     }
 
@@ -180,6 +184,9 @@ public class TeamServicesController {
         Map<String, String> errorsMap = participantService.update(member);
         if (errorsMap.isEmpty()) {
             session.removeAttribute("member");
+            for (Robot robot : member.getRobots()) {
+                robot.setChecked(false);
+            }
             return "redirect:/menu#members";
         }
         model.addAttribute("errorsMap", errorsMap);
@@ -259,6 +266,7 @@ public class TeamServicesController {
             robot.get().setOperators(operators);
             robot.get().setName(name);
             robot.get().setChecked(false);
+            robot.get().setTournamentId(null);
             errorsMap = robotService.update(robot.get());
             if (!errorsMap.isEmpty()) {
                 model.addAttribute("oldName", oldName);

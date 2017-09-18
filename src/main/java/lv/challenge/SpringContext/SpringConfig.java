@@ -5,12 +5,8 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -26,9 +22,13 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({"lv.challenge.domain", "lv.challenge.application", "lv.challenge.services", "lv.challenge.database", "lv.challenge.SpringConfigClasses"})
+@PropertySources({
+        @PropertySource("classpath:database.properties"),
+        @PropertySource("classpath:app.properties")
+})
 public class SpringConfig {
-    private static final String DATABASE_PROPERTIES_FILE = "database.properties";
-    @Bean
+    //    private static final String DATABASE_PROPERTIES_FILE = "database.properties";
+/*    @Bean
     public static PropertySourcesPlaceholderConfigurer prodPropertiesPlaceholderConfigurer() {
         PropertySourcesPlaceholderConfigurer p = new PropertySourcesPlaceholderConfigurer();
         Resource[] resourceLocations = new Resource[] {
@@ -36,7 +36,12 @@ public class SpringConfig {
         };
         p.setLocations(resourceLocations);
         return p;
+    }*/
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+        return new PropertySourcesPlaceholderConfigurer();
     }
+
 
     @Bean
     public Properties hibernateProperties(

@@ -15,4 +15,19 @@ public class UserAuthority implements GrantedAuthority {
     public String getAuthority() {
         return role;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserAuthority that = (UserAuthority) o;
+
+        return role.equals(that.role);
+    }
+
+    @Override
+    public int hashCode() {
+        return role.hashCode();
+    }
 }

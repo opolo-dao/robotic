@@ -39,11 +39,11 @@ public abstract class CompetitorsHibernateDAO<T> {
 
 
     public Optional<T> getById(int id) {
-        System.out.println("hello");
-        return Optional.ofNullable(getCurrentSession().get(objectClass,id));
+        return Optional.ofNullable(getCurrentSession().get(objectClass, id));
     }
-    public Optional<T> loadById(int id){
-        return  getCurrentSession().byId(objectClass).loadOptional(id);
+
+    public Optional<T> loadById(int id) {
+        return getCurrentSession().byId(objectClass).loadOptional(id);
     }
 
     public Optional<T> getByName(String name) {
@@ -70,7 +70,9 @@ public abstract class CompetitorsHibernateDAO<T> {
 
 
     public List<T> getAll() {
-        return null;
+        String hql = "FROM " + objectClass.getSimpleName();
+        TypedQuery<T> query = getCurrentSession().createQuery(hql, objectClass);
+        return query.getResultList();
     }
 
 

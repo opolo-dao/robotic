@@ -1,5 +1,6 @@
 $(function () {
     $("#editBody").on("click", function () {
+        CKEDITOR.config.allowedContent = true;
         var editor = CKEDITOR.replace("bodyText");
         var button = document.createElement("button");
         button.innerHTML = "ok";

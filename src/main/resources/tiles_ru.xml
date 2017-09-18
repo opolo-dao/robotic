@@ -5,7 +5,7 @@
     <definition name="defaultLayout" template="/WEB-INF/tiles/layouts/defaultLayout.jsp">
         <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
         <put-attribute name="body" value=""/>
-        <put-attribute name="footer" value="/WEB-INF/tiles/templates/footer.jsp"/>
+        <put-attribute name="footer" value="/html/footer_ru.html"/>
         <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu_ru.jsp"/>
         <put-attribute name="title" value="Привет"/>
         <put-attribute name="pageScripts" value=""/>
@@ -42,7 +42,7 @@
         <put-attribute name="menuItemsList" value="/WEB-INF/jsp/teamMenuItemsList_ru.jsp"/>
         <put-attribute name="menuBody" value="/WEB-INF/jsp/teamMenuBody_ru.jsp"/>
         <put-attribute name="menuAdditionals" value="/WEB-INF/jsp/teamMenuAdditionals.jsp"/>
-        <put-attribute name="footer" value="/WEB-INF/tiles/templates/footer.jsp"/>
+        <put-attribute name="footer" value="/html/footer_ru.html"/>
         <put-attribute name="pageScripts" value=""/>
 
     </definition>
@@ -71,7 +71,7 @@
     <definition name="rulesLayout" template="/WEB-INF/tiles/layouts/rulesLayout.jsp">
         <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
         <put-attribute name="title" value="Правила состязания"/>
-        <put-attribute name="footer" value="/WEB-INF/tiles/templates/footer.jsp"/>
+        <put-attribute name="footer" value="/html/footer_ru.html"/>
         <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu_ru.jsp"/>
         <put-attribute name="definitionTitle" value="Определение"/>
         <put-attribute name="conditionsTitle" value="Условия"/>
@@ -92,7 +92,7 @@
     <definition name="errorPage" extends="defaultLayout">
         <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
         <put-attribute name="body" value="/WEB-INF/jsp/errorPage.jsp"/>
-        <put-attribute name="footer" value="/WEB-INF/tiles/templates/footer.jsp"/>
+        <put-attribute name="footer" value="/html/footer_ru.html"/>
         <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
         <put-attribute name="title" value="Error"/>
     </definition>

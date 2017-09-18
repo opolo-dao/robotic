@@ -15,7 +15,10 @@ import org.springframework.stereotype.Component;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
@@ -92,12 +95,12 @@ public class TournamentHibernateDAO implements TournamentDAO {
     }
 
     @Override
-    public List<Robot> getAllRobots() {
+    public List<Robot> getAllRobots(Integer tournamentId) {
         CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
         CriteriaQuery<Robot> cq = cb.createQuery(Robot.class);
         Root<Robot> root = cq.from(Robot.class);
         cq.select(root);
-        cq.where(cb.equal(root.get(Robot_.checked), true));
+        cq.where(cb.equal(root.get(Robot_.tournamentId), tournamentId));
         TypedQuery<Robot> typedQuery = getCurrentSession().createQuery(cq);
         return typedQuery.getResultList();
     }
@@ -107,9 +110,20 @@ public class TournamentHibernateDAO implements TournamentDAO {
         CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
         CriteriaQuery<Robot> cq = cb.createQuery(Robot.class);
         Root<Robot> robotRoot = cq.from(Robot.class);
-        cq.where(cb.and(cb.isMember(competition, robotRoot.get(Robot_.competitions)), cb.equal(robotRoot.get(Robot_.checked), true), cb.equal(robotRoot.get(Robot_.tournamentId), tournamentId)));
+        cq.where(cb.and(cb.isMember(competition, robotRoot.get(Robot_.competitions)), cb.equal(robotRoot.get(Robot_.tournamentId), tournamentId)));
         Query query = getCurrentSession().createQuery(cq);
         return query.getResultList();
+    }
+
+    @Override
+    public Long getCompetitionRobotsCount(CompetitionType competition, Integer tournamentId) {
+        CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<Robot> robotRoot = cq.from(Robot.class);
+        cq.select(cb.countDistinct(robotRoot));
+        cq.where(cb.and(cb.isMember(competition, robotRoot.get(Robot_.competitions)), cb.equal(robotRoot.get(Robot_.checked), true), cb.equal(robotRoot.get(Robot_.tournamentId), tournamentId)));
+        TypedQuery<Long> typedQuery = getCurrentSession().createQuery(cq);
+        return typedQuery.getSingleResult();
     }
 
     @Override
@@ -159,10 +173,21 @@ public class TournamentHibernateDAO implements TournamentDAO {
     public Long getParticipantsCount(Integer tournamentId) {
         CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
-        Root<Robot> robotRoot = cq.from(Robot.class);
-        SetJoin<Participant, Robot> robotParticipantJoin = robotRoot.join(Robot_.operators).join(Participant_.robots);
-        cq.select(cb.count(robotParticipantJoin)).distinct(true);
-        cq.where(cb.equal(robotRoot.get(Robot_.tournamentId), tournamentId));
+        Root<Participant> root = cq.from(Participant.class);
+        Join<Participant, Robot> jpr = root.join(Participant_.robots);
+        cq.select(cb.countDistinct(root));
+        cq.where(cb.equal(jpr.get(Robot_.tournamentId), tournamentId));
+        TypedQuery<Long> typedQuery = getCurrentSession().createQuery(cq);
+        return typedQuery.getSingleResult();
+    }
+
+    public Long getTeamsCount(Integer tournamentId) {
+        CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<Team> teamRoot = cq.from(Team.class);
+        Join<Team, Robot> teamRobotJoin = teamRoot.join(Team_.robots);
+        cq.select(cb.countDistinct(teamRoot));
+        cq.where(cb.equal(teamRobotJoin.get(Robot_.tournamentId), tournamentId));
         TypedQuery<Long> typedQuery = getCurrentSession().createQuery(cq);
         return typedQuery.getSingleResult();
     }
@@ -181,6 +206,5 @@ public class TournamentHibernateDAO implements TournamentDAO {
             return Optional.ofNullable(null);
         }
     }
-
 
 }

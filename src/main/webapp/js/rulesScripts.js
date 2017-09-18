@@ -1,5 +1,7 @@
 $(function () {
+    CKEDITOR.config.allowedContent = true;
     $("button").on("click", function () {
+
         var part = $(this)[0].value
         var editor = CKEDITOR.replace(part + "Text");
         var button = document.createElement("button");

@@ -1,5 +1,9 @@
 package lv.challenge.database;
 
+import lv.challenge.domain.competitors.Robot;
+import lv.challenge.domain.tournament.Tournament;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -11,4 +15,8 @@ public interface CompetitionDAO<T> {
     void delete(T entity);
     Optional<T> getById(int id);
     Optional<T> loadById(int id);
+
+    List<T> getAll();
+
+    List<T> getRobotResults(Robot robot, Tournament tournament);
 }

@@ -1,5 +1,6 @@
 $(function () {
     $("#editBody").on("click", function () {
+        CKEDITOR.config.allowedContent = true;
         var editor = CKEDITOR.replace("bodyText");
         var button = document.createElement("button");
         button.innerHTML = "ok";
@@ -11,7 +12,7 @@ $(function () {
             sec[header] = token;
             $.ajax({
                 type: "POST",
-                url: "/robotic/admin/rest/updatematchtable",
+                url: "/robotic/admin/rest/updateaboutcompetitions",
                 data: {
                     text: editor.getData()
                 },

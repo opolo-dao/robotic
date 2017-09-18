@@ -1,6 +1,8 @@
 package lv.challenge.domain.tournament;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -19,43 +21,51 @@ public class Tournament {
     @Column(name = "id", updatable = false, nullable = false)
     private Integer id;
     @Column(name = "event_date")
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime eventDateTime;
     @Column(name = "registration_allowed")
     private boolean registrationOpen;
     @Column(name = "start_registration")
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime startRegistrationDateTime;
     @Column(name = "end_registration")
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime endRegistrationDateTime;
     @Column(name = "name", nullable = false, unique = true)
     private String name;
     @Column(name = "active")
     private boolean active;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "LLFSid")
     private LegoLinefollowerSettings legoLinefollowerSettings;
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FLFSid")
     private FreeLinefollowerSettings freeLinefollowerSettings;
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FFRSid")
     private FreeFolkraceSettings freeFolkraceSettings;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "LFRSid")
     private LegoFolkraceSettings legoFolkraceSettings;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FLSid")
     private FreeLabyrinthSettings freeLabyrinthSettings;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "LLSid")
     private LegoLabyrinthSettings legoLabyrinthSettings;
-    @OneToOne
-    @JoinColumn(name = "MSSid")
-    private MiniSumoSettings miniSumoSettings;
-    @OneToOne
-    @JoinColumn(name = "LSSid")
-    private LegoSumoSettings legoSumoSettings;
+
+    public Tournament() {
+    }
+
+    @Autowired
+    public Tournament(LegoLinefollowerSettings legoLinefollowerSettings, FreeLinefollowerSettings freeLinefollowerSettings, FreeFolkraceSettings freeFolkraceSettings, LegoFolkraceSettings legoFolkraceSettings, FreeLabyrinthSettings freeLabyrinthSettings, LegoLabyrinthSettings legoLabyrinthSettings) {
+        this.legoLinefollowerSettings = legoLinefollowerSettings;
+        this.freeLinefollowerSettings = freeLinefollowerSettings;
+        this.freeFolkraceSettings = freeFolkraceSettings;
+        this.legoFolkraceSettings = legoFolkraceSettings;
+        this.freeLabyrinthSettings = freeLabyrinthSettings;
+        this.legoLabyrinthSettings = legoLabyrinthSettings;
+    }
 
     public Integer getId() {
         return id;
@@ -161,22 +171,6 @@ public class Tournament {
         this.legoLabyrinthSettings = legoLabyrinthSettings;
     }
 
-    public MiniSumoSettings getMiniSumoSettings() {
-        return miniSumoSettings;
-    }
-
-    public void setMiniSumoSettings(MiniSumoSettings miniSumoSettings) {
-        this.miniSumoSettings = miniSumoSettings;
-    }
-
-    public LegoSumoSettings getLegoSumoSettings() {
-        return legoSumoSettings;
-    }
-
-    public void setLegoSumoSettings(LegoSumoSettings legoSumoSettings) {
-        this.legoSumoSettings = legoSumoSettings;
-    }
-
     public static final class TournamentBuilder {
         private Integer id;
         private LocalDateTime eventDateTime;
@@ -191,8 +185,7 @@ public class Tournament {
         private LegoFolkraceSettings legoFolkraceSettings;
         private FreeLabyrinthSettings freeLabyrinthSettings;
         private LegoLabyrinthSettings legoLabyrinthSettings;
-        private MiniSumoSettings miniSumoSettings;
-        private LegoSumoSettings legoSumoSettings;
+
 
         private TournamentBuilder() {
         }
@@ -266,16 +259,6 @@ public class Tournament {
             return this;
         }
 
-        public TournamentBuilder withMiniSumoSettings(MiniSumoSettings miniSumoSettings) {
-            this.miniSumoSettings = miniSumoSettings;
-            return this;
-        }
-
-        public TournamentBuilder withLegoSumoSettings(LegoSumoSettings legoSumoSettings) {
-            this.legoSumoSettings = legoSumoSettings;
-            return this;
-        }
-
         public Tournament build() {
             Tournament tournament = new Tournament();
             tournament.setId(id);
@@ -291,8 +274,7 @@ public class Tournament {
             tournament.setLegoFolkraceSettings(legoFolkraceSettings);
             tournament.setFreeLabyrinthSettings(freeLabyrinthSettings);
             tournament.setLegoLabyrinthSettings(legoLabyrinthSettings);
-            tournament.setMiniSumoSettings(miniSumoSettings);
-            tournament.setLegoSumoSettings(legoSumoSettings);
+
             return tournament;
         }
     }
