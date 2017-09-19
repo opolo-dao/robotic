@@ -37,6 +37,7 @@ public class TeamService extends CompetitorService<Team> {
    for(Robot robot: team.get().getRobots()){
     Hibernate.initialize(robot.getOperators());
    Hibernate.initialize(robot.getCompetitions());
+       Hibernate.initialize(robot.getTournaments());
    }
   }
   return team;

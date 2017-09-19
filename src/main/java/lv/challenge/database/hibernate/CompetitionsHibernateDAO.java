@@ -7,10 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +36,14 @@ public abstract class CompetitionsHibernateDAO<T> {
 
     public void delete(T entity) {
         getCurrentSession().delete(entity);
+    }
+
+    public void deleteAllTournamentRecords(Tournament tournament) {
+        CriteriaBuilder cb = getCurrentSession().getCriteriaBuilder();
+        CriteriaDelete<T> cd = cb.createCriteriaDelete(competitionClass);
+        Root<T> root = cd.from(competitionClass);
+        cd.where(cb.equal(root.get("tournament"), tournament));
+        getCurrentSession().createQuery(cd).executeUpdate();
     }
 
     public Optional<T> getById(int id) {

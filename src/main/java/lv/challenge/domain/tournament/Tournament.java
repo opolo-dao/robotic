@@ -1,5 +1,6 @@
 package lv.challenge.domain.tournament;
 
+import lv.challenge.domain.competitors.Robot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Daniil on 16.06.2017.
@@ -53,7 +56,13 @@ public class Tournament {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "LLSid")
     private LegoLabyrinthSettings legoLabyrinthSettings;
-
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "robot_tournament",
+            joinColumns = @JoinColumn(name = "tournamentid"),
+            inverseJoinColumns = @JoinColumn(name = "robotid")
+    )
+    Set<Robot> robots = new HashSet<>();
     public Tournament() {
     }
 
@@ -169,6 +178,24 @@ public class Tournament {
 
     public void setLegoLabyrinthSettings(LegoLabyrinthSettings legoLabyrinthSettings) {
         this.legoLabyrinthSettings = legoLabyrinthSettings;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tournament that = (Tournament) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + name.hashCode();
+        return result;
     }
 
     public static final class TournamentBuilder {

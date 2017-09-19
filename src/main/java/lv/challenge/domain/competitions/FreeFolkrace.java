@@ -1,6 +1,7 @@
 package lv.challenge.domain.competitions;
 
 import lv.challenge.domain.competitors.Robot;
+import lv.challenge.domain.tournament.Tournament;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,17 @@ public class FreeFolkrace implements Competition {
     @OneToOne
     @JoinColumn(name = "robotid")
     Robot robot;
+    @OneToOne
+    @JoinColumn(name = "tournamentid")
+    Tournament tournament;
+
+    public Tournament getTournament() {
+        return tournament;
+    }
+
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
+    }
 
     public Robot getRobot() {
         return robot;

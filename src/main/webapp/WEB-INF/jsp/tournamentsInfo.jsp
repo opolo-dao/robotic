@@ -9,7 +9,7 @@
             </c:forEach>
         </select>
         <span class="input-group-addon btn-default btn" id="setActiveBtn">Set Active</span>
-
+        <span class="input-group-addon btn-default btn" id="deleteBtn">Delete</span>
     </div>
     <br>
     <div class="row">

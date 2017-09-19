@@ -69,6 +69,11 @@ public class AdminRestController {
         tournamentService.setActiveTournament(tournamentId);
     }
 
+    @GetMapping("/deletetournament")
+    protected void deleteTournament(@RequestParam Integer tournamentId) {
+        tournamentService.deleteById(tournamentId);
+    }
+
     @PostMapping("/updaterules")
     protected void updateRule(@RequestParam String part,
                               @RequestParam String text,

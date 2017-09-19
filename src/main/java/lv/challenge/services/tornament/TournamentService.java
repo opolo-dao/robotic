@@ -5,6 +5,7 @@ import lv.challenge.database.TournamentDAO;
 import lv.challenge.domain.competitions.CompetitionType;
 import lv.challenge.domain.competitors.Robot;
 import lv.challenge.domain.tournament.Tournament;
+import lv.challenge.services.interfaces.CompetitionService;
 import lv.challenge.services.interfaces.ValidationError;
 import lv.challenge.services.interfaces.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class TournamentService {
     Validator<Tournament> validator;
     @Autowired
     ApplicationService appService;
+    @Autowired
+    Set<CompetitionService> competitionServices;
 
     public Map<String, String> save(Tournament tournament) {
         Map<String, String> errors = new HashMap<>();
@@ -40,7 +43,18 @@ public class TournamentService {
     }
 
     public void delete(Tournament tournament) {
-        dao.delete(tournament);
+
+        deleteById(tournament.getId());
+    }
+
+    public void deleteById(Integer tournamentId) {
+        Tournament tournament = dao.loadById(tournamentId).orElse(null);
+        if (tournament != null) {
+            for (CompetitionService service : competitionServices) {
+                service.deleteAllTournamentRecords(tournament);
+            }
+            dao.deleteById(tournamentId);
+        }
     }
 
     public List<Tournament> getAll() {
@@ -48,11 +62,11 @@ public class TournamentService {
     }
 
     public List<List<String>> getAllCompetitors() {
-        return prepareTable(dao.getAllRobots(appService.getActiveTournament().getId()), false);
+        return prepareTable(dao.getAllRobots(appService.getActiveTournament()), false);
     }
 
     public List<List<String>> getCompetitionRobots(CompetitionType competition) {
-        return prepareTable(dao.getCompetitionRobots(competition, appService.getActiveTournament().getId()), false);
+        return prepareTable(dao.getCompetitionRobots(competition, appService.getActiveTournament()), false);
     }
 
     public List<List<String>> getRobotsToAccept() {
@@ -89,14 +103,16 @@ public class TournamentService {
     }
 
     public Map<String, Object> getTournamentStatistic(Integer tournamentId) {
+        Tournament tournament = dao.loadById(tournamentId).orElse(null);
+        if (tournament == null) return null;
         Map<String, Object> stats = new HashMap<>();
-        stats.put("countries", dao.getUniqCountries(tournamentId));
-        stats.put("robots", dao.getRobotsCount(tournamentId));
-        stats.put("participants", dao.getParticipantsCount(tournamentId));
-        stats.put("teams", dao.getTeamsCount(tournamentId));
+        stats.put("countries", dao.getUniqCountries(tournament));
+        stats.put("robots", dao.getRobotsCount(tournament));
+        stats.put("participants", dao.getParticipantsCount(tournament));
+        stats.put("teams", dao.getTeamsCount(tournament));
         Map<String, Long> competitionsRobots = new HashMap<>();
         for (CompetitionType comp : CompetitionType.values()) {
-            competitionsRobots.put(comp.toString(), dao.getCompetitionRobotsCount(comp, tournamentId));
+            competitionsRobots.put(comp.toString(), dao.getCompetitionRobotsCount(comp, tournament));
         }
         stats.put("competitionsRobots", competitionsRobots);
         return stats;

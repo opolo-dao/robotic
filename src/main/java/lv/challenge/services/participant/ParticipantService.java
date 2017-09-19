@@ -3,6 +3,7 @@ package lv.challenge.services.participant;
 import lv.challenge.database.CompetitorsDAO;
 import lv.challenge.domain.competitors.Contact;
 import lv.challenge.domain.competitors.Participant;
+import lv.challenge.domain.competitors.Robot;
 import lv.challenge.services.interfaces.CompetitorService;
 import lv.challenge.services.interfaces.Validator;
 import org.hibernate.Hibernate;
@@ -33,6 +34,10 @@ public class ParticipantService extends CompetitorService<Participant> {
         Optional<Participant> participantOptional = dao.loadById(id);
         if (participantOptional.isPresent()) {
             Hibernate.initialize(participantOptional.get().getContact());
+            Hibernate.initialize(participantOptional.get().getRobots());
+            for (Robot robot : participantOptional.get().getRobots()) {
+                Hibernate.initialize(robot.getTournaments());
+            }
         }
         return participantOptional;
     }

@@ -44,6 +44,7 @@ public class RobotService extends CompetitorService<Robot> {
         if (robotOptional.isPresent()) {
             Hibernate.initialize(robotOptional.get().getOperators());
             Hibernate.initialize(robotOptional.get().getCompetitions());
+            Hibernate.initialize(robotOptional.get().getTournaments());
         }
         return robotOptional;
     }
@@ -53,7 +54,7 @@ public class RobotService extends CompetitorService<Robot> {
         if (robotOptional.isPresent()) {
             robotOptional.get().setChecked(true);
             robotOptional.get().setAdminComment(null);
-            robotOptional.get().setTournamentId(appService.getActiveTournament().getId());
+            robotOptional.get().getTournaments().add(appService.getActiveTournament());
             dao.update(robotOptional.get());
         }
     }
@@ -75,7 +76,7 @@ public class RobotService extends CompetitorService<Robot> {
         Optional<Robot> robotById = dao.getById(robotid);
         Optional<Robot> robotByNumber = ((RobotDAO) dao).getRobotByNumber(registrationNumber, tournament);
         if (robotByNumber.isPresent() && robotById.isPresent() && !robotById.equals(robotByNumber)) return false;
-        if (robotById.isPresent() && robotById.get().getTournamentId() != null) {
+        if (robotById.isPresent() && robotById.get().getTournaments().contains(tournament)) {
             robotById.get().setRegistered_number(registrationNumber);
             dao.update(robotById.get());
             return true;

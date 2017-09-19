@@ -26,7 +26,7 @@ public class RobotDAO extends CompetitorsHibernateDAO<Robot> implements Competit
         Root<Robot> root = cq.from(Robot.class);
         cq.select(root);
         Predicate predicate = cb.and(cb.equal(root.get(Robot_.registeredNumber), number),
-                cb.equal(root.get(Robot_.tournamentId), tournament.getId()));
+                cb.isMember(tournament, root.get(Robot_.tournaments)));
         cq.where(predicate);
         TypedQuery<Robot> tq = getCurrentSession().createQuery(cq);
         try {

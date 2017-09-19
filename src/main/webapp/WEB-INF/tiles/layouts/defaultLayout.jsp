@@ -49,8 +49,7 @@
     <script src="/robotic/ckeditor/ckeditor.js"></script>
     <script src="/robotic/js/moment-with-locales.js"></script>
     <script src="/robotic/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="${pageScripts}"></script>
 </sec:authorize>
-
+<script src="${pageScripts}"></script>
 </body>
 </html>

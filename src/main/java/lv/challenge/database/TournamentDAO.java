@@ -27,23 +27,23 @@ public interface TournamentDAO {
 
     Optional<Tournament> getByName(String name);
 
-    List<Robot> getAllRobots(Integer tournamentId);
+    List<Robot> getAllRobots(Tournament tournament);
 
-    List<Robot> getCompetitionRobots(CompetitionType competition, Integer tournamentId);
+    List<Robot> getCompetitionRobots(CompetitionType competition, Tournament tournament);
 
-    Long getCompetitionRobotsCount(CompetitionType competition, Integer tournamentId);
+    Long getCompetitionRobotsCount(CompetitionType competition, Tournament tournament);
 
     List<Robot> getRobotsToAccept();
 
     Long getNumberOfRobotsToCheck();
 
-    List<String> getUniqCountries(Integer tournamentId);
+    List<String> getUniqCountries(Tournament tournament);
 
-    Long getRobotsCount(Integer tournamentId);
+    Long getRobotsCount(Tournament tournament);
 
-    Long getParticipantsCount(Integer tournamentId);
+    Long getParticipantsCount(Tournament tournament);
 
-    Long getTeamsCount(Integer tournamentId);
+    Long getTeamsCount(Tournament tournament);
 
     Optional<Tournament> getActiveTournament();
 }

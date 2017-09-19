@@ -90,15 +90,15 @@
         <c:forEach items="${team.robots}" var="robot" varStatus="i">
         <div class="panel-group" id="accordion">
             <c:if test="${robot.checked && robot.adminComment == null}">
-            <c:if test="${robot.tournamentId == activeTournament.id}">
-            <div class="panel panel-info">
+            <c:if test="${robot.tournaments.contains(activeTournament)}">
+            <div class="panel panel-success">
                 </c:if>
-                <c:if test="${robot.tournamentId != activeTournament.id}">
+                <c:if test="${!robot.tournaments.contains(activeTournament)}">
                 <div class="panel panel-warning">
                     </c:if>
                     </c:if>
                     <c:if test="${!robot.checked}">
-                    <div class="panel panel-warning">
+                    <div class="panel panel-info">
                         </c:if>
                         <c:if test="${robot.checked && robot.adminComment != null}">
                         <div class="panel panel-danger">
@@ -112,18 +112,19 @@
                                     </div>
                                     <c:if test="${!robot.checked}">
                                         <div class="col-lg-6">
-                                            <i class="glyphicon glyphicon-minus-sign"></i>Robot is waiting to check by
+                                            <i class="glyphicon glyphicon-search"></i>Robot is waiting to check by
                                             administrator
                                         </div>
                                     </c:if>
                                     <c:if test="${robot.checked}">
                                         <div class="col-lg-6">
-                                            <c:if test="${robot.adminComment == null}"> <i
-                                                    class="glyphicon glyphicon-ok-sign"></i>
-                                                <c:if test="${robot.tournamentId == activeTournament.id}">
-                                                    Accepted ${activeTournament.name}
+                                            <c:if test="${robot.adminComment == null}">
+                                                <c:if test="${robot.tournaments.contains(activeTournament)}">
+                                                    <i class="glyphicon glyphicon-ok-sign"></i>
+                                                    Accepted to ${activeTournament.name}
                                                 </c:if>
-                                                <c:if test="${robot.tournamentId != activeTournament.id}">
+                                                <c:if test="${!robot.tournaments.contains(activeTournament)}">
+                                                    <i class="glyphicon glyphicon-minus-sign"></i>
                                                     Participated in previous tournaments
                                                 </c:if>
                                             </c:if>

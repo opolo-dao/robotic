@@ -89,7 +89,7 @@ public class TeamServicesController {
                            @RequestParam("email") String email,
                            Model model,
                            Authentication auth) {
-        User user = ((MyUserDetail) auth.getPrincipal()).getUser();
+        User user = userService.getByIdWithCollections(((MyUserDetail) auth.getPrincipal()).getUser().getId()).get();
         Map<String, String> errorsMap = new HashMap<>();
         user.getContact().setPhoneNumber(phone);
         user.getContact().setEmail(email);
@@ -113,6 +113,8 @@ public class TeamServicesController {
         userService.updateWithoutValidation(user);
         for (Robot robot : user.getTeam().getRobots()) {
             robot.setChecked(false);
+            robot.getTournaments().remove(appService.getActiveTournament());
+            robotService.updateWithoutValidation(robot);
         }
         return "redirect:/menu#info";
     }
@@ -186,6 +188,8 @@ public class TeamServicesController {
             session.removeAttribute("member");
             for (Robot robot : member.getRobots()) {
                 robot.setChecked(false);
+                robot.getTournaments().remove(appService.getActiveTournament());
+                robotService.updateWithoutValidation(robot);
             }
             return "redirect:/menu#members";
         }
@@ -256,7 +260,7 @@ public class TeamServicesController {
                             @RequestParam(value = "operatorsId", required = false) List<Integer> operatorsId,
                             @RequestParam("id") int id,
                             Model model) {
-        Optional<Robot> robot = robotService.getById(id);
+        Optional<Robot> robot = robotService.getByIdWithCollections(id);
         String oldName = robot.get().getName();
         Map<String, String> errorsMap;
         Set<Participant> operators = null;
@@ -266,7 +270,7 @@ public class TeamServicesController {
             robot.get().setOperators(operators);
             robot.get().setName(name);
             robot.get().setChecked(false);
-            robot.get().setTournamentId(null);
+            robot.get().getTournaments().remove(appService.getActiveTournament());
             errorsMap = robotService.update(robot.get());
             if (!errorsMap.isEmpty()) {
                 model.addAttribute("oldName", oldName);

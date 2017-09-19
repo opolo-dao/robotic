@@ -23,6 +23,16 @@ $(function () {
                         }
                     })
                 })
+                $("#deleteBtn").on('click', function () {
+                    var tournamentId = $("#tournamentsList option:selected")[0].value;
+                    jQuery.get({
+                        "url": "/robotic/admin/rest/deletetournament",
+                        "data": {"tournamentId": tournamentId},
+                        "success": function (data) {
+                            location.reload()
+                        }
+                    })
+                })
 
             }
         })

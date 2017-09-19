@@ -1,6 +1,7 @@
 package lv.challenge.domain.competitions;
 
 import lv.challenge.domain.competitors.Robot;
+import lv.challenge.domain.tournament.Tournament;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -30,6 +31,18 @@ public class LegoSumo implements Competition {
     int loses;
     @Column(name = "points")
     int points;
+    @OneToOne
+    @JoinColumn(name = "tournamentid")
+    Tournament tournament;
+
+    public Tournament getTournament() {
+        return tournament;
+    }
+
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

@@ -26,6 +26,10 @@ public abstract class CompetitionService<T> {
     public void delete(T entity) {
     }
 
+    public void deleteAllTournamentRecords(Tournament tournament) {
+        dao.deleteAllTournamentRecords(tournament);
+    }
+
     public List<List<String>> getAllAsStringArray() {
         return prepareTable(dao.getAll());
     }

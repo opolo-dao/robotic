@@ -3,6 +3,7 @@ package lv.challenge.domain.competitors;
 import com.google.gson.annotations.Expose;
 import lv.challenge.domain.DomainObject;
 import lv.challenge.domain.competitions.CompetitionType;
+import lv.challenge.domain.tournament.Tournament;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 import org.springframework.context.annotation.Scope;
@@ -52,10 +53,23 @@ public class Robot implements DomainObject {
     Set<CompetitionType> competitions = new HashSet<>();
     @Column(name = "registered")
     private boolean registered;
-    @Column(name = "tournamentId")
-    private Integer tournamentId;
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "robot_tournament",
+            joinColumns = @JoinColumn(name = "robotid"),
+            inverseJoinColumns = @JoinColumn(name = "tournamentid")
+    )
+    Set<Tournament> tournaments = new HashSet<>();
     @Column(name = "adminComment")
     String adminComment;
+
+    public Set<Tournament> getTournaments() {
+        return tournaments;
+    }
+
+    public void setTournaments(Set<Tournament> tournaments) {
+        this.tournaments = tournaments;
+    }
 
     public String getAdminComment() {
         return adminComment;
@@ -63,14 +77,6 @@ public class Robot implements DomainObject {
 
     public void setAdminComment(String adminComment) {
         this.adminComment = adminComment;
-    }
-
-    public Integer getTournamentId() {
-        return tournamentId;
-    }
-
-    public void setTournamentId(Integer tournamentId) {
-        this.tournamentId = tournamentId;
     }
 
     public Team getTeam() {
@@ -167,7 +173,6 @@ public class Robot implements DomainObject {
         Team team;
         Set<CompetitionType> competitions = new HashSet<>();
         boolean checked;
-        Integer tournamentId;
 
         private RobotBuilder() {
         }
@@ -212,10 +217,6 @@ public class Robot implements DomainObject {
             return this;
         }
 
-        public RobotBuilder withTournamentId(Integer id) {
-            this.tournamentId = id;
-            return this;
-        }
 
         public Robot build() {
             Robot robot = new Robot();
@@ -227,7 +228,6 @@ public class Robot implements DomainObject {
             robot.setCompetitions(competitions);
             robot.setRegistered_number(registeredNumber);
             robot.setChecked(checked);
-            robot.setTournamentId(tournamentId);
             return robot;
         }
     }

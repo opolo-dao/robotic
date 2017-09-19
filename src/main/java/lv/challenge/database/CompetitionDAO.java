@@ -18,5 +18,6 @@ public interface CompetitionDAO<T> {
 
     List<T> getAll();
 
+    void deleteAllTournamentRecords(Tournament tournament);
     List<T> getRobotResults(Robot robot, Tournament tournament);
 }
