@@ -29,7 +29,7 @@ import java.util.Locale;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "lv.challenge.servlets.mvc")
+@ComponentScan(basePackages = "lv.challenge.servlets")
 public class SpringMVCConfig extends WebMvcConfigurerAdapter {
 
     @Override
@@ -45,6 +45,7 @@ public class SpringMVCConfig extends WebMvcConfigurerAdapter {
         registry.viewResolver(internalViewResolver);
 
     }
+
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -70,7 +71,7 @@ public class SpringMVCConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**").addResourceLocations("/css/");
-        registry.addResourceHandler("/html/**").addResourceLocations("file:" + appService.SAVE_PATH + File.separator + "html" + File.separator);
+        registry.addResourceHandler("/html/**").addResourceLocations("file:" + appService.SAVE_PATH + File.separator + "WEB-INF" + File.separator + "html" + File.separator);
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
         registry.addResourceHandler("/pictures/**").addResourceLocations("file:" + appService.SAVE_PATH + File.separator + "pictures" + File.separator);
         registry.addResourceHandler("/fonts/**").addResourceLocations("/fonts/");
@@ -103,6 +104,7 @@ public class SpringMVCConfig extends WebMvcConfigurerAdapter {
     public StandardServletMultipartResolver resolver() {
         return new StandardServletMultipartResolver();
     }
+
     @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver resolver = new CookieLocaleResolver();

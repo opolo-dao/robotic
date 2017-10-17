@@ -49,7 +49,7 @@ public class SpringWebAppInitializer extends AbstractDispatcherServletInitialize
         registration.setMultipartConfig(getMultipartConfigElement());
     }
 
-    private static final String LOCATION = "/opt/tomcat/webapps/store/temp"; // Temporary location where files will be stored
+    private static final String LOCATION = "/opt/tomcat/webapps/store//WEB-INF/temp"; // Temporary location where files will be stored
 
     private static final long MAX_FILE_SIZE = 5242880; // 5MB : Max file size.
     // Beyond that size spring will throw exception.

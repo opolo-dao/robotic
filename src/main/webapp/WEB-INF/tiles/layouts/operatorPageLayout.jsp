@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/robotic/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/robotic/css/myStyles.css"/>
     <link rel="stylesheet" href="/robotic/DataTables/datatables.css"/>
+    <link rel="icon" href="/robotic/pictures/favicon.ico"/>
     <security:csrfMetaTags/>
 </head>
 <body>

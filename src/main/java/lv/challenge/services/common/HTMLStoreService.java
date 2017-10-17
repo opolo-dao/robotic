@@ -16,9 +16,13 @@ public class HTMLStoreService {
     ApplicationService appService;
 
     public void writeToHTMLFileStore(String data, String filename, Locale locale) {
-
+        if (filename.contains("?")) {
+            filename = filename.substring(0, filename.lastIndexOf('?'));
+        }
         StringBuilder file = new StringBuilder();
         file.append(appService.SAVE_PATH);
+        file.append(File.separator);
+        file.append("WEB-INF");
         file.append(File.separator);
         file.append("html");
         file.append(File.separator);

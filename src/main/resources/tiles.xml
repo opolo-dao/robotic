@@ -57,7 +57,7 @@
         <put-attribute name="menuBody" value="/WEB-INF/jsp/teamMenuBody.jsp"/>
         <put-attribute name="menuAdditionals" value="/WEB-INF/jsp/teamMenuAdditionals.jsp"/>
         <put-attribute name="footer" value="/html/footer_en.html"/>
-        <put-attribute name="flag" value="/robotic/pictures/gb.svg"/>
+        <put-attribute name="flag" value="/pictures/gb.svg"/>
         <put-attribute name="pageScripts" value=""/>
 
     </definition>
@@ -68,7 +68,7 @@
     </definition>
     <definition name="addRobot" extends="defaultLayout">
         <put-attribute name="body" value="/WEB-INF/jsp/addRobot.jsp"/>
-        <put-attribute name="pageScripts" value="/robotic/js/addRobot.js"/>
+        <put-attribute name="pageScripts" value="/js/addRobot.js"/>
 
     </definition>
     <definition name="editRobot" extends="defaultLayout">
@@ -83,23 +83,7 @@
     </definition>
     <!-- About competitions pages-->
     <definition name="aboutCompetitions" extends="defaultLayout">
-        <put-attribute name="body" value="/html/aboutCompetitions/competitions_en.html"/>
-        <put-attribute name="pageScripts" value="/robotic/js/aboutCompetitionsScripts.js"/>
-    </definition>
-    <definition name="aboutSumo" extends="defaultLayout">
-        <put-attribute name="body" value="/html/aboutCompetitions/sumo_en.html"/>
-        <put-attribute name="pageScripts" value="/robotic/js/aboutCompetitionsScripts.js"/>
-    </definition>
-    <definition name="aboutLinefollower" extends="defaultLayout">
-        <put-attribute name="body" value="/html/aboutCompetitions/linefollower_en.html"/>
-        <put-attribute name="pageScripts" value="/robotic/js/aboutCompetitionsScripts.js"/>
-    </definition>
-    <definition name="aboutFolkrace" extends="defaultLayout">
-        <put-attribute name="body" value="/html/aboutCompetitions/folkrace_en.html"/>
-        <put-attribute name="pageScripts" value="/robotic/js/aboutCompetitionsScripts.js"/>
-    </definition>
-    <definition name="aboutLabyrinth" extends="defaultLayout">
-        <put-attribute name="body" value="/html/aboutCompetitions/labyrinth_en.html"/>
+        <put-attribute name="body" expression="${page}"/>
         <put-attribute name="pageScripts" value="/robotic/js/aboutCompetitionsScripts.js"/>
     </definition>
     <!--Competitions rules-->
@@ -169,7 +153,7 @@
         <put-attribute name="pageScripts" value="/robotic/js/createTournamentScripts.js"/>
     </definition>
 
-
+    <!-- Participants tables -->
     <definition name="participantsTables" template="/WEB-INF/tiles/layouts/tablesPageLayout.jsp">
         <put-attribute name="flag" value="/robotic/pictures/gb.svg"/>
         <put-attribute name="body" value="/WEB-INF/jsp/participantsTables.jsp"/>

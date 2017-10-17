@@ -1,31 +1,32 @@
-package lv.challenge.SpringConfigClasses;
+package lv.challenge.servlets.mailService;
 
+import lv.challenge.application.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMailMessage;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
+@EnableAsync
 @PropertySource("classpath:mail.properties")
 public class MailConfig {
+    @Autowired
+    ApplicationService appService;
     @Value("${mail.protocol}")
     private String protocol;
     @Value("${mail.host}")
     private String host;
     @Value("${mail.port}")
     private int port;
-    @Value("${mail.smtp.socketFactory.port}")
-    private int socketPort;
     @Value("${mail.smtp.auth}")
     private boolean auth;
     @Value("${mail.smtp.starttls.enable}")
@@ -34,8 +35,7 @@ public class MailConfig {
     private boolean startlls_required;
     @Value("${mail.smtp.debug}")
     private boolean debug;
-    @Value("${mail.smtp.socketFactory.fallback}")
-    private boolean fallback;
+
     @Value("${mail.from}")
     private String from;
     @Value("${mail.username}")
@@ -50,10 +50,9 @@ public class MailConfig {
         mailProperties.put("mail.smtp.auth", auth);
         mailProperties.put("mail.smtp.starttls.enable", starttls);
         mailProperties.put("mail.smtp.starttls.required", startlls_required);
-        mailProperties.put("mail.smtp.socketFactory.port", socketPort);
+
         mailProperties.put("mail.smtp.debug", debug);
         mailProperties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        mailProperties.put("mail.smtp.socketFactory.fallback", fallback);
 
         mailSender.setJavaMailProperties(mailProperties);
         mailSender.setHost(host);
@@ -64,16 +63,12 @@ public class MailConfig {
         return mailSender;
     }
 
-    /*@Bean(name = "RegistrationTemplate") //simple registration confirmation template
-    public SimpleMailMessage registrationTemplateSimpleMessage() {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("info@robotics.lv");
-        message.setSentDate(new Date( ));
-        message.setSubject("Registration at robotics.lv");
-        message.setText(
-                "Registration request has been sent, please wait for email confirmation link.\n");
-        return message;
-    }*/
+    @Bean
+    FreeMarkerConfigurationFactoryBean freeMarkerConfigurationFactoryBean() throws IOException {
+        FreeMarkerConfigurationFactoryBean freeMarkerConfigurationFactoryBean = new FreeMarkerConfigurationFactoryBean();
+        freeMarkerConfigurationFactoryBean.setTemplateLoaderPath("file:" + appService.SAVE_PATH + File.separator + "WEB-INF" + File.separator + "mail_templates" + File.separator);
+        freeMarkerConfigurationFactoryBean.setDefaultEncoding("utf-8");
+        return freeMarkerConfigurationFactoryBean;
+    }
 
-    // ...more templates
 }

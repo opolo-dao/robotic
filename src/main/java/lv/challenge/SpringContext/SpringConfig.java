@@ -37,6 +37,7 @@ public class SpringConfig {
         p.setLocations(resourceLocations);
         return p;
     }*/
+
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
         return new PropertySourcesPlaceholderConfigurer();

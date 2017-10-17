@@ -12,6 +12,7 @@
     <title><tiles:getAsString name="title"/></title>
     <link rel="stylesheet" href="/robotic/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/robotic/css/myStyles.css"/>
+    <link rel="icon" href="/robotic/pictures/favicon.ico"/>
     <sec:authorize access="hasAnyRole('ADMIN', 'HTML_EDITOR')">
         <link rel="stylesheet" href="/robotic/css/bootstrap-datetimepicker.min.css"/>
     </sec:authorize>

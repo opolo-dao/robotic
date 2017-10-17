@@ -1,12 +1,16 @@
 package lv.challenge.servlets.mvc.controllers;
 
+import lv.challenge.application.ApplicationService;
 import lv.challenge.domain.competitors.Contact;
 import lv.challenge.domain.competitors.Team;
 import lv.challenge.domain.users.User;
 import lv.challenge.domain.users.UserRole;
 import lv.challenge.services.interfaces.CompetitorService;
 import lv.challenge.services.interfaces.Validator;
+import lv.challenge.servlets.mailService.MailService;
+import lv.challenge.servlets.mailService.MailingEventType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,10 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 //import lv.challenge.services.mail.RegistrationConfirmEmail;
 
@@ -30,16 +31,19 @@ import java.util.Set;
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
-    //    @Autowired
-//    private RegistrationConfirmEmail sendHtmlEmailService;
+
     @Autowired
     private CompetitorService<Team> teamService;
     @Autowired
-    CompetitorService<User> userService;
+    private CompetitorService<User> userService;
     @Autowired
-    CompetitorService<Contact> contactService;
+    private CompetitorService<Contact> contactService;
     @Autowired
     private BCryptPasswordEncoder encoder;
+    @Autowired
+    private MailService mailService;
+    @Autowired
+    private ApplicationService appService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String registerUser(HttpServletRequest req, HttpServletResponse resp, Model model) {
@@ -55,7 +59,7 @@ public class RegistrationController {
         Team team = Team.TeamBuilder.createTeam()
                 .withName(info.teamName)
                 .build();
-        Map<String, String> errorsMap =  new HashMap<>();
+        Map<String, String> errorsMap = new HashMap<>();
 
         Contact contact = Contact.ContactBuilder.createContact()
                 .withEmail(info.email)
@@ -74,13 +78,13 @@ public class RegistrationController {
                 .withLogin(info.login)
                 .withPassword(encoder.encode(info.password1))
                 .build();
-        errorsMap.putAll(teamService.validate(team, Validator.Purpose.CREATE ));
+        errorsMap.putAll(teamService.validate(team, Validator.Purpose.CREATE));
         errorsMap.putAll(contactService.validate(contact, Validator.Purpose.CREATE));
         errorsMap.putAll(userService.validate(user, Validator.Purpose.CREATE));
-        if(!info.password1.equals(info.password2)){
-            errorsMap.put("userPasswordErrorMsg","Passwords mismatch");
+        if (!info.password1.equals(info.password2)) {
+            errorsMap.put("userPasswordErrorMsg", "Passwords mismatch");
         }
-        if(!errorsMap.isEmpty()){
+        if (!errorsMap.isEmpty()) {
             model.addAttribute("errors", errorsMap);
             return "registration";
         }
@@ -90,12 +94,12 @@ public class RegistrationController {
         team.setUser(user);
         user.setTeam(team);
         userService.saveWithoutValidation(user);
-        //send registration email
-/*        try {
-            sendHtmlEmailService.sendEmail(info.email, "attachments/log.txt"); //type null if don't need attachment
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }*/
+        Locale loc = LocaleContextHolder.getLocale();
+        Map<String, Object> mailModel = new HashMap<>();
+        mailModel.put("login", info.login);
+        mailModel.put("password", info.password1);
+        mailModel.put("tournament", appService.getActiveTournament().getName());
+        mailService.sendPreparedMail(info.email, MailingEventType.REGISTRATION, loc, mailModel);
         return "redirect:menu";
     }
 

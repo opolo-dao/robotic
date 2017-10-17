@@ -21,26 +21,36 @@ public class AboutController {
 
     @GetMapping("/competitions")
     public String getAboutCompetiitons(Model model) {
+        Locale locale = LocaleContextHolder.getLocale();
+        model.addAttribute("page", "/html/aboutCompetitions/competitions_" + locale.getLanguage() + ".html");
         return "aboutCompetitions";
     }
 
     @GetMapping("/sumo")
     public String getAboutSumo(Model model) {
-        return "aboutSumo";
+        Locale locale = LocaleContextHolder.getLocale();
+        model.addAttribute("page", "/html/aboutCompetitions/sumo_" + locale.getLanguage() + ".html");
+        return "aboutCompetitions";
     }
 
     @GetMapping("/linefollower")
     public String getAboutLinefollower(Model model) {
-        return "aboutLinefollower";
+        Locale locale = LocaleContextHolder.getLocale();
+        model.addAttribute("page", "/html/aboutCompetitions/linefollower__" + locale.getLanguage() + ".html");
+        return "aboutCompetitions";
     }
 
     @GetMapping("/folkrace")
     public String getAboutFolkrace(Model model) {
-        return "aboutFolkrace";
+        Locale locale = LocaleContextHolder.getLocale();
+        model.addAttribute("page", "/html/aboutCompetitions/folkrace_" + locale.getLanguage() + ".html");
+        return "aboutCompetitions";
     }
 
     @GetMapping("/labyrinth")
     public String getAboutLabyrinth(Model model) {
-        return "aboutLabyrinth";
+        Locale locale = LocaleContextHolder.getLocale();
+        model.addAttribute("page", "/html/aboutCompetitions/labyrinth_" + locale.getLanguage() + ".html");
+        return "aboutCompetitions";
     }
 }

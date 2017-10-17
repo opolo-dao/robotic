@@ -26,10 +26,11 @@ public class ApplicationService {
     @Autowired
     TournamentService tournamentService;
     private ArrayList<String> storeDirs = new ArrayList<>(Arrays.asList(
-            "/html/sumo", "/html/linefollower", "/html/folkrace", "/html/labyrinth", "/html/matchtables", "/html/aboutCompetitions", "/html/results",
+            "/WEB-INF/html/sumo", "/WEB-INF/html/linefollower", "/WEB-INF/html/folkrace", "/WEB-INF/html/labyrinth", "/WEB-INF/html/matchtables", "/WEB-INF/html/aboutCompetitions", "/WEB-INF/html/results",
+            "/WEB-INF/mail_templates",
             "/pictures",
             "/photos",
-            "/temp"
+            "/WEB-INF/temp"
     ));
 
     public ApplicationService() {

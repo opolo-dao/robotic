@@ -3,8 +3,8 @@
     <li role="presentation" class="active">
         <a id="tournaments" role="button">Tournament</a>
     </li>
-    <li role="presentation"><a id="uploadPicture" role="button">Upload pictures</a></li>
-    <li role="presentation"><a role="button">Competitions</a></li>
+    <li role="presentation"><a id="pictureMenu" role="button">Pictures</a></li>
+    <li role="presentation"><a id="emailMenu" role="button">Emails</a></li>
     <li role="presentation">
         <a id="robotsToCheck" role="button">Check robots<span id="robotsToCheckBadge"
                                                               class="badge">${robotsToCheckBadge}</span></a>

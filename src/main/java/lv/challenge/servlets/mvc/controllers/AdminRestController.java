@@ -6,16 +6,23 @@ import lv.challenge.services.common.HTMLStoreService;
 import lv.challenge.services.interfaces.CompetitorService;
 import lv.challenge.services.robot.RobotService;
 import lv.challenge.services.tornament.TournamentService;
+import lv.challenge.servlets.mailService.MailTemplates;
+import lv.challenge.servlets.mailService.MailingEventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +41,37 @@ public class AdminRestController {
     ApplicationService appService;
     @Autowired
     HTMLStoreService htmlStoreService;
+    @Autowired
+    MailTemplates mailTemplates;
+
+    @PostMapping("/uploadimage")
+    protected void uploadImage(@RequestParam MultipartFile file,
+                               @RequestParam String name,
+                               HttpServletRequest req) {
+        String originalFilename = file.getOriginalFilename();
+        try (FileOutputStream fos = new FileOutputStream(appService.SAVE_PATH + File.separator + "/pictures/" + name + originalFilename.substring(originalFilename.lastIndexOf(".")))) {
+            fos.write(file.getBytes());
+        } catch (IOException e) {
+            System.out.println("cant upload picture");
+        }
+    }
+
+    @PostMapping("/deleteimage")
+    protected void deleteImage(@RequestParam String image) {
+        String imageName = image.substring(image.lastIndexOf('/') + 1);
+        Path filename = Paths.get(appService.SAVE_PATH + File.separator + "pictures" + File.separator + imageName);
+        try {
+            Files.delete(filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @GetMapping("/getemailtemplate")
+    protected String geteMailTemplate(@RequestParam String templateName) {
+        return mailTemplates.getMailTemplate(templateName);
+
+    }
 
     @GetMapping("/robotstochecklist")
     @ResponseBody
@@ -106,6 +144,7 @@ public class AdminRestController {
     protected void updateHome(@RequestParam String text) {
         htmlStoreService.writeToHTMLFileStore(text, "home", LocaleContextHolder.getLocale());
     }
+
     @PostMapping("/updategeneralrules")
     protected void updateGeneralRules(@RequestParam String text) {
 
@@ -128,5 +167,19 @@ public class AdminRestController {
         htmlStoreService.writeToHTMLFileStore(text, "results" + File.separator + tournamentId + "_" + competitionName, LocaleContextHolder.getLocale());
     }
 
+    @PostMapping("/updatemailtemplate")
+    protected String updateMailTemplate(@RequestParam String templateName, @RequestParam String text) {
+        return mailTemplates.updateMailTemplate(templateName, text);
+    }
 
+    @PostMapping("/deletemailtemplate")
+    protected String deleteMailTemplate(@RequestParam String templateName) {
+        return mailTemplates.deleteMailTemplate(templateName);
+    }
+
+    @PostMapping("/setmailingeventtemplate")
+    protected String setMailingEventTemplate(@RequestParam String templateName,
+                                             @RequestParam MailingEventType eventType) {
+        return mailTemplates.setMailingEventTemplate(templateName, eventType);
+    }
 }
