@@ -1,6 +1,7 @@
 $(function () {
     var globRow;
     var sec = getCSRFToken();
+
     function getTournamentMenu() {
         jQuery.get({
             "url": "/robotic/admin/tournamentsinfo",
@@ -65,8 +66,6 @@ $(function () {
     getTournamentMenu();
     $("#pictureMenu").on("click", function () {
         changeActive(this);
-        $("#menu").children().removeClass("active");
-        $(this).parent().addClass("active");
         jQuery.get({
             "url": "/robotic/admin/picturemenu",
             "success": function (data) {
@@ -85,7 +84,6 @@ $(function () {
                         contentType: false,
                         "headers": sec,
                         "success": function (data) {
-                            console.log("kuku");
                             $("#pictureMenu").trigger("click");
                         },
                         "error": function () {
@@ -284,6 +282,57 @@ $(function () {
         $(elem).parent().addClass("active");
     }
 
+    $("#photoMenu").on('click', function () {
+        changeActive(this);
+        jQuery.get({
+            "url": "/robotic/admin/photomenu",
+            "success": function (data) {
+                $("#menuBody").html(data);
+                $("#photos").easyPaginate({
+                    paginateElement: '>div',
+                    elementsPerPage: 5
+                })
+                $("#uploadPhoto").on('click', function () {
+                    var formData = new FormData($("#fileForm")[0]);
+                    $.ajax({
+                        "type": "POST",
+                        "url": "/robotic/admin/rest/uploadphoto",
+                        "data": formData,
+                        processData: false,
+                        contentType: false,
+                        "headers": sec,
+                        "success": function (data) {
+                            $("#photoMenu").trigger("click");
+                        },
+                        "error": function () {
+                            alert("Something wrong. Check name of file and choose file.")
+                        }
+                    });
+                })
+                $("#videos").easyPaginate({
+                    paginateElement: 'li',
+                    elementsPerPage: 5
+                })
+                $("#addVideoBtn").on('click', function () {
+                    var videoId = $("#videoId").val();
+                    var videoTitle = $("#videoTitle").val();
+                    $.ajax({
+                        "type": "POST",
+                        "url": "/robotic/admin/rest/addvideo",
+                        "data": {"videoId": videoId, "videoTitle": videoTitle},
+                        "headers": sec,
+                        "success": function (data) {
+                            $("#photoMenu").trigger("click");
+                        },
+                        "error": function () {
+                            alert("Something wrong. Check name of file and choose file.")
+                        }
+                    });
+                })
+            }
+        })
+    })
+
     function getCSRFToken() {
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
@@ -304,6 +353,36 @@ function deletePicture(button) {
         "headers": sec,
         "success": function () {
             (button).closest("[name = imageOption]").remove();
+        }
+    });
+}
+
+function deletePhoto(button) {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var sec = {};
+    sec[header] = token;
+    jQuery.post({
+        "url": "/robotic/admin/rest/deletephoto",
+        "data": {"photo": button.value},
+        "headers": sec,
+        "success": function () {
+            (button).closest("[name = photoOption]").remove();
+        }
+    });
+}
+
+function deleteVideo(button) {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var sec = {};
+    sec[header] = token;
+    jQuery.post({
+        "url": "/robotic/admin/rest/deletevideo",
+        "data": {"video": button.value},
+        "headers": sec,
+        "success": function () {
+            (button).closest("li").remove();
         }
     });
 }

@@ -2,8 +2,11 @@ package lv.challenge.servlets.mvc.controllers;
 
 import lv.challenge.application.ApplicationService;
 import lv.challenge.domain.competitors.Robot;
+import lv.challenge.domain.photo_video.Video;
 import lv.challenge.services.common.HTMLStoreService;
 import lv.challenge.services.interfaces.CompetitorService;
+import lv.challenge.services.photo_video.PhotoService;
+import lv.challenge.services.photo_video.VideoService;
 import lv.challenge.services.robot.RobotService;
 import lv.challenge.services.tornament.TournamentService;
 import lv.challenge.servlets.mailService.MailTemplates;
@@ -43,17 +46,53 @@ public class AdminRestController {
     HTMLStoreService htmlStoreService;
     @Autowired
     MailTemplates mailTemplates;
+    @Autowired
+    PhotoService photoService;
+    @Autowired
+    VideoService videoService;
 
     @PostMapping("/uploadimage")
     protected void uploadImage(@RequestParam MultipartFile file,
                                @RequestParam String name,
                                HttpServletRequest req) {
         String originalFilename = file.getOriginalFilename();
-        try (FileOutputStream fos = new FileOutputStream(appService.SAVE_PATH + File.separator + "/pictures/" + name + originalFilename.substring(originalFilename.lastIndexOf(".")))) {
+        try (FileOutputStream fos = new FileOutputStream(appService.SAVE_PATH + File.separator + "pictures" + File.separator + name + originalFilename.substring(originalFilename.lastIndexOf(".")))) {
             fos.write(file.getBytes());
         } catch (IOException e) {
             System.out.println("cant upload picture");
         }
+    }
+
+    @PostMapping("/uploadphoto")
+    protected String uploadImage(@RequestParam MultipartFile file,
+                                 @RequestParam String photoName,
+                                 @RequestParam String title,
+                                 @RequestParam String photoFolder,
+                                 @RequestParam String description,
+                                 HttpServletRequest req) {
+
+        return photoService.savePhoto(file, photoName, photoFolder, title, description);
+    }
+
+    @PostMapping("/deletephoto")
+    protected void deletePhoto(@RequestParam String photo) {
+        photoService.deletePhoto(photo);
+    }
+
+    @PostMapping("/addvideo")
+    protected void addVideo(@RequestParam String videoId,
+                            @RequestParam String videoTitle) {
+        videoService.saveVideoId(videoId, videoTitle);
+    }
+
+    @PostMapping("/deletevideo")
+    protected void deleteVideo(@RequestParam String video) {
+        String[] attr = video.split(",");
+        if (attr.length < 2) {
+            videoService.deleteVideo(new Video(attr[0], ""));
+        } else
+            videoService.deleteVideo(new Video(attr[0], attr[1]));
+
     }
 
     @PostMapping("/deleteimage")

@@ -51,7 +51,7 @@ public class SpringWebAppInitializer extends AbstractDispatcherServletInitialize
 
     private static final String LOCATION = "/opt/tomcat/webapps/store//WEB-INF/temp"; // Temporary location where files will be stored
 
-    private static final long MAX_FILE_SIZE = 5242880; // 5MB : Max file size.
+    private static final long MAX_FILE_SIZE = 10485760; // 10MB : Max file size.
     // Beyond that size spring will throw exception.
     private static final long MAX_REQUEST_SIZE = 20971520; // 20MB : Total request size containing Multi part.
 

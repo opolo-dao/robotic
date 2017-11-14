@@ -8,49 +8,52 @@
         <put-attribute name="body" value=""/>
         <put-attribute name="footer" value="/html/footer_en.html"/>
         <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
-        <put-attribute name="title" value="RoboChallenge"/>
+        <put-attribute name="title" value="TSI Robotic Tournament."/>
         <put-attribute name="pageScripts" value=""/>
     </definition>
     <!--About us page-->
     <definition name="about" extends="defaultLayout">
-        <put-attribute name="title" value="About Us"></put-attribute>
+        <put-attribute name="title" value="About Us. TSI Robotic Tournament."></put-attribute>
         <put-attribute name="body" expression="${about}"/>
         <put-attribute name="pageScripts" value="/robotic/js/aboutScripts.js"/>
     </definition>
     <!-- General rules-->
     <definition name="generalRules" extends="defaultLayout">
-        <put-attribute name="title" value="General rules"/>
+        <put-attribute name="title" value="General rules. TSI Robotic Tournament."/>
         <put-attribute name="body" value="/html/generalrules_en.html"/>
         <put-attribute name="pageScripts" value="/robotic/js/generalRulesScripts.js"/>
     </definition>
     <!--Results pages-->
     <definition name="results" extends="defaultLayout">
-        <put-attribute name="title" value="Results"/>
+        <put-attribute name="title" value="Results. TSI Robotic Tournament."/>
         <put-attribute name="body" expression="${competition}"/>
         <put-attribute name="pageScripts" value="/robotic/js/resultsScripts.js"/>
     </definition>
     <!--Match Tables page-->
     <definition name="agenda" extends="defaultLayout">
-        <put-attribute name="title" value="Match table"/>
+        <put-attribute name="title" value="Agenda. TSI Robotic Tournament."/>
         <put-attribute name="body" expression="${agenda}"/>
         <put-attribute name="pageScripts" value="/robotic/js/agendaScripts.js"/>
     </definition>
     <!-- Home Page -->
     <definition name="home" extends="defaultLayout">
-        <put-attribute name="title" value="Welcome"/>
+        <put-attribute name="title" value="Welcome. TSI Robotic Tournament."/>
         <put-attribute name="body" expression="${home}"/>
         <put-attribute name="pageScripts" value="/robotic/js/homeScripts.js"/>
     </definition>
+    <!--Registration page-->
     <definition name="registration" extends="defaultLayout">
+        <put-attribute name="title" value="Registration. TSI Robotic Tournament."/>
         <put-attribute name="body" value="/WEB-INF/jsp/registration.jsp"/>
     </definition>
     <!--Team login page-->
     <definition name="login" extends="defaultLayout">
+        <put-attribute name="title" value="Login. TSI Robotic Tournament."/>
         <put-attribute name="body" value="/WEB-INF/jsp/login.jsp"/>
     </definition>
     <!--Team menu page-->
     <definition name="teamMenu" template="/WEB-INF/tiles/layouts/teamMenuLayout.jsp">
-        <put-attribute name="title" value="Team Menu"/>
+        <put-attribute name="title" value="Team Menu. TSI Robotic Tournament."/>
         <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
         <put-attribute name="menuHeader" value="/WEB-INF/jsp/teamMenuHeader.jsp"/>
         <put-attribute name="menuItemsList" value="/WEB-INF/jsp/teamMenuItemsList.jsp"/>
@@ -64,32 +67,38 @@
 
     <!--Team menu actions-->
     <definition name="editUser" extends="defaultLayout">
+        <put-attribute name="title" value="Edit user. TSI Robotic Tournament."/>
         <put-attribute name="body" value="/WEB-INF/jsp/editUser.jsp"/>
     </definition>
     <definition name="addRobot" extends="defaultLayout">
+        <put-attribute name="title" value="Add Robot. TSI Robotic Tournament."/>
         <put-attribute name="body" value="/WEB-INF/jsp/addRobot.jsp"/>
         <put-attribute name="pageScripts" value="/js/addRobot.js"/>
 
     </definition>
     <definition name="editRobot" extends="defaultLayout">
+        <put-attribute name="title" value="Edit Robot. TSI Robotic Tournament."/>
         <put-attribute name="body" value="/WEB-INF/jsp/editRobot.jsp"/>
         <put-attribute name="pageScripts" value="/robotic/js/addRobot.js"/>
     </definition>
     <definition name="addMember" extends="defaultLayout">
+        <put-attribute name="title" value="Add team member. TSI Robotic Tournament."/>
         <put-attribute name="body" value="/WEB-INF/jsp/addMember.jsp"/>
     </definition>
     <definition name="editMember" extends="defaultLayout">
+        <put-attribute name="title" value="Edit team member. TSI Robotic Tournament."/>
         <put-attribute name="body" value="/WEB-INF/jsp/editMember.jsp"/>
     </definition>
     <!-- About competitions pages-->
     <definition name="aboutCompetitions" extends="defaultLayout">
+        <put-attribute name="title" value="About Competition. TSI Robotic Tournament."/>
         <put-attribute name="body" expression="${page}"/>
         <put-attribute name="pageScripts" value="/robotic/js/aboutCompetitionsScripts.js"/>
     </definition>
     <!--Competitions rules-->
     <definition name="rulesLayout" template="/WEB-INF/tiles/layouts/rulesLayout.jsp">
         <put-attribute name="flag" value="/robotic/pictures/gb.svg"/>
-        <put-attribute name="title" value="Rules of Competition"/>
+        <put-attribute name="title" value="Rules of Competition. TSI Robotic Tournament."/>
         <put-attribute name="footer" value="/html/footer_en.html"/>
         <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
         <put-attribute name="definitionTitle" value="Definition"/>
@@ -101,6 +110,7 @@
 
     </definition>
     <definition name="sumoRules" extends="rulesLayout">
+        <put-attribute name="title" value="Sumo rules. TSI Robotic Tournament."/>
         <put-attribute name="definition" value="/html/sumo/definition_en.html"/>
         <put-attribute name="conditions" value="/html/sumo/conditions_en.html"/>
         <put-attribute name="field" value="/html/sumo/field_en.html"/>
@@ -108,6 +118,7 @@
         <put-attribute name="procedure" value="/html/sumo/procedure_en.html"/>
     </definition>
     <definition name="linefollowerRules" extends="rulesLayout">
+        <put-attribute name="title" value="Linefollower rules. TSI Robotic Tournament."/>
         <put-attribute name="definition" value="/html/linefollower/definition_en.html"/>
         <put-attribute name="conditions" value="/html/linefollower/conditions_en.html"/>
         <put-attribute name="field" value="/html/linefollower/field_en.html"/>
@@ -115,6 +126,7 @@
         <put-attribute name="procedure" value="/html/linefollower/procedure_en.html"/>
     </definition>
     <definition name="labyrinthRules" extends="rulesLayout">
+        <put-attribute name="title" value="Labyrinth rules. TSI Robotic Tournament."/>
         <put-attribute name="definition" value="/html/labyrinth/definition_en.html"/>
         <put-attribute name="conditions" value="/html/labyrinth/conditions_en.html"/>
         <put-attribute name="field" value="/html/labyrinth/field_en.html"/>
@@ -122,6 +134,7 @@
         <put-attribute name="procedure" value="/html/labyrinth/procedure_en.html"/>
     </definition>
     <definition name="folkraceRules" extends="rulesLayout">
+        <put-attribute name="title" value="Folkrace rules. TSI Robotic Tournament."/>
         <put-attribute name="definition" value="/html/folkrace/definition_en.html"/>
         <put-attribute name="conditions" value="/html/folkrace/conditions_en.html"/>
         <put-attribute name="field" value="/html/folkrace/field_en.html"/>
@@ -130,15 +143,15 @@
     </definition>
     <!-- Errors pages-->
     <definition name="errorPage" extends="defaultLayout">
+        <put-attribute name="title" value="Error page. TSI Robotic Tournament."/>
         <put-attribute name="flag" value="/robotic/pictures/gb.svg"/>
         <put-attribute name="body" value="/WEB-INF/jsp/errorPage.jsp"/>
         <put-attribute name="footer" value="/html/footer_en.html"/>
         <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
-        <put-attribute name="title" value="Error"/>
     </definition>
     <!--admin menu-->
     <definition name="adminMenu" template="/WEB-INF/tiles/layouts/adminMenuLayout.jsp">
-        <put-attribute name="title" value="Admin Menu"/>
+        <put-attribute name="title" value="Admin menu. TSI Robotic Tournament."/>
         <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
         <put-attribute name="menuHeader" value="/WEB-INF/jsp/adminMenuHeader.jsp"/>
         <put-attribute name="menuItemsList" value="/WEB-INF/jsp/adminMenuItemsList.jsp"/>
@@ -149,6 +162,7 @@
         <put-attribute name="pageScripts" value="/robotic/js/adminPageScripts.js"/>
     </definition>
     <definition name="createTournament" extends="defaultLayout">
+        <put-attribute name="title" value="Create tournament. TSI Robotic Tournament."/>
         <put-attribute name="body" value="/WEB-INF/jsp/createTournament.jsp"/>
         <put-attribute name="pageScripts" value="/robotic/js/createTournamentScripts.js"/>
     </definition>
@@ -159,18 +173,38 @@
         <put-attribute name="body" value="/WEB-INF/jsp/participantsTables.jsp"/>
         <put-attribute name="footer" value="/html/footer_en.html"/>
         <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
-        <put-attribute name="title" value="RoboChallenge"/>
+        <put-attribute name="title" value="Participants tables. TSI Robotic Tournament."/>
         <put-attribute name="pageScripts" value="/robotic/js/competitionTablesScripts.js"/>
     </definition>
+    <!-- Operators pages-->
     <definition name="lfOperator" template="/WEB-INF/tiles/layouts/operatorPageLayout.jsp">
         <put-attribute name="body" value="/WEB-INF/jsp/lfOperatorPage.jsp"/>
         <put-attribute name="pageScripts" value="/robotic/js/lfOperatorPageScripts.js"/>
         <put-attribute name="flag" value="/robotic/pictures/gb.svg"/>
         <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
-        <put-attribute name="title" value="lfOperator"/>
+        <put-attribute name="title" value="Linefollower operator. TSI Robotic Tournament."/>
     </definition>
     <definition name="registrarPage" extends="defaultLayout">
+        <put-attribute name="title" value="Registrar page. TSI Robotic Tournament."/>
         <put-attribute name="body" value="/WEB-INF/jsp/registrarPage.jsp"/>
         <put-attribute name="pageScripts" value="/robotic/js/registrarPageScripts.js"/>
+    </definition>
+    <!-- Photo template-->
+    <definition name="photo" template="/WEB-INF/tiles/layouts/photoLayout.jsp">
+        <put-attribute name="flag" value="/robotic/pictures/gb.svg"/>
+        <put-attribute name="footer" value="/html/footer_en.html"/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
+        <put-attribute name="title" value="Photos. TSI Robotic Tournament."/>
+        <put-attribute name="body" value="/WEB-INF/jsp/photo.jsp"/>
+        <put-attribute name="pageScripts" value="/robotic/js/photoPageScripts.js"/>
+    </definition>
+    <!-- Video template-->
+    <definition name="video" template="/WEB-INF/tiles/layouts/videoLayout.jsp">
+        <put-attribute name="flag" value="/robotic/pictures/gb.svg"/>
+        <put-attribute name="footer" value="/html/footer_en.html"/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
+        <put-attribute name="title" value="Videos. TSI Robotic Tournament."/>
+        <put-attribute name="body" value="/WEB-INF/jsp/video.jsp"/>
+        <put-attribute name="pageScripts" value="/robotic/js/videoPageScripts.js"/>
     </definition>
 </tiles-definitions>

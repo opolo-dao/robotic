@@ -66,34 +66,34 @@
     <ul class="nav navbar-nav">
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Competitions<span class="caret"></span></a>
+               aria-expanded="false">Sacensības<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="/robotic/about/competitions">About robotic competitions</a></li>
+                <li><a href="/robotic/about/competitions">Par robotikas sacensībām</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="/robotic/about/sumo">Sumo</a></li>
-                <li><a href="/robotic/about/linefollower">LineFollower</a></li>
-                <li><a href="/robotic/about/labyrinth">Labyrinth</a></li>
-                <li><a href="/robotic/about/folkrace">Folkrace</a></li>
+                <li><a href="/robotic/about/linefollower">Līnijsekošana</a></li>
+                <li><a href="/robotic/about/labyrinth">Labirints</a></li>
+                <li><a href="/robotic/about/folkrace">Folkreiss</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Rules<span class="caret"></span></a>
+               aria-expanded="false">Noteikumi<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="/robotic/rules/general">General</a></li>
+                <li><a href="/robotic/rules/general">Sacensību nolikums</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="/robotic/rules/sumo">Sumo</a></li>
-                <li><a href="/robotic/rules/linefollower">LineFollower</a></li>
-                <li><a href="/robotic/rules/labyrinth">Labyrinth</a></li>
-                <li><a href="/robotic/rules/folkrace">Folkrace</a></li>
+                <li><a href="/robotic/rules/linefollower">Līnijsekošana</a></li>
+                <li><a href="/robotic/rules/labyrinth">Labirints</a></li>
+                <li><a href="/robotic/rules/folkrace">Folkreiss</a></li>
 
             </ul>
         </li>
 
-        <li><a href="/robotic/participants">Participants</a></li>
+        <li><a href="/robotic/participants">Dalībnieki</a></li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Results<span class="caret"></span></a>
+               aria-expanded="false">Rezultāti<span class="caret"></span></a>
             <ul class="dropdown-menu">
 
                 <c:forEach items="${appService.getAllTournaments()}" var="tournament">
@@ -102,9 +102,9 @@
                         <ul class="dropdown-menu">
 
                             <li><a href="/robotic/results/${tournament.id}/sumo">Sumo</a></li>
-                            <li><a href="/robotic/results/${tournament.id}/linefollower">LineFollower</a></li>
-                            <li><a href="/robotic/results/${tournament.id}/labyrinth">Labyrinth</a></li>
-                            <li><a href="/robotic/results/${tournament.id}/folkrace">Folkrace</a></li>
+                            <li><a href="/robotic/results/${tournament.id}/linefollower">Līnijsekošana</a></li>
+                            <li><a href="/robotic/results/${tournament.id}/labyrinth">Labirints</a></li>
+                            <li><a href="/robotic/results/${tournament.id}/folkrace">Folkreiss</a></li>
                         </ul>
                     </li>
                 </c:forEach>
@@ -113,14 +113,14 @@
 
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Photo&Video<span class="caret"></span></a>
+               aria-expanded="false">Galerija<span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="/robotic/videos">Videos</a></li>
-                <li><a href="/robotic/photos">Photos</a></li>
+                <li><a href="/robotic/photos">Fotos</a></li>
             </ul>
         </li>
-        <li><a href="/robotic/agenda">Agenda</a></li>
-        <li><a href="/robotic/about">About us</a></li>
+        <li><a href="/robotic/agenda">Norises programma</a></li>
+        <li><a href="/robotic/about">Par mums</a></li>
 
 
     </ul>
@@ -161,7 +161,7 @@
         <sec:authorize access="hasRole('ANONYMOUS')">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">Login<span class="caret"></span></a>
+                   aria-expanded="false">Pieslēgties<span class="caret"></span></a>
                 <ul class="dropdown-menu" style="min-width: 250px; min-height: 120px; padding: 10px;">
                     <li>
                         <div class="row">
@@ -172,15 +172,15 @@
                                     <div style="margin-bottom: 12px" class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                         <input id="username" type="text" class="form-control" name="username" value=""
-                                               placeholder="username">
+                                               placeholder="logins">
                                     </div>
 
                                     <div style="margin-bottom: 12px" class="input-group">
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                                         <input id="password" type="password" class="form-control" name="password"
-                                               placeholder="password">
+                                               placeholder="parole">
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-block">login</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Pieslēgties</button>
                                     <input type="hidden"
                                            name="${_csrf.parameterName}"
                                            value="${_csrf.token}"/>
@@ -190,7 +190,7 @@
                     </li>
                 </ul>
             </li>
-            <li><a href="/robotic/registration">Register</a></li>
+            <li><a href="/robotic/registration">Reģistrēties</a></li>
         </sec:authorize>
 
         <li class="dropdown">

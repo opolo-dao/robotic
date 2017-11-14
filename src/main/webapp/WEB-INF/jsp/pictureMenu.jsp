@@ -23,7 +23,7 @@
 <div class="row">
     <div class="col-md-4">
         <h4>Upload new file</h4>
-        <form id="fileForm" method="post" action="/robotic/admin/upload" enctype="multipart/form-data">
+        <form id="fileForm" enctype="multipart/form-data">
             <input name="name"/>
             <input type="file" name="file" accept="image/*"/>
             <input type="hidden"

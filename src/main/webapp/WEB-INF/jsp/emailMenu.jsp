@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h3 class="text-center">Mail templates working menu</h3>
+        <h4 class="text-center">Mail templates working menu</h4>
     </div>
 </div>
 <div class="row">

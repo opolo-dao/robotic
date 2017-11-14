@@ -1,99 +1,210 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
 <tiles-definitions>
     <definition name="defaultLayout" template="/WEB-INF/tiles/layouts/defaultLayout.jsp">
         <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
         <put-attribute name="body" value=""/>
         <put-attribute name="footer" value="/html/footer_ru.html"/>
         <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu_ru.jsp"/>
-        <put-attribute name="title" value="Привет"/>
+        <put-attribute name="title" value="Турнир робототехники TSI."/>
         <put-attribute name="pageScripts" value=""/>
     </definition>
+    <!--About us page-->
     <definition name="about" extends="defaultLayout">
-        <put-attribute name="title" value="О нас..."></put-attribute>
-        <put-attribute name="body" value="/html/about_ru.html"/>
+        <put-attribute name="title" value="О нас. Турнир робототехники TSI."></put-attribute>
+        <put-attribute name="body" expression="${about}"/>
         <put-attribute name="pageScripts" value="/robotic/js/aboutScripts.js"/>
     </definition>
     <!-- General rules-->
     <definition name="generalRules" extends="defaultLayout">
-        <put-attribute name="title" value="Правила турнира"/>
+        <put-attribute name="title" value="Регламент соревнований. Турнир робототехники TSI."/>
         <put-attribute name="body" value="/html/generalrules_ru.html"/>
         <put-attribute name="pageScripts" value="/robotic/js/generalRulesScripts.js"/>
     </definition>
+    <!--Results pages-->
+    <definition name="results" extends="defaultLayout">
+        <put-attribute name="title" value="Результаты. Турнир робототехники TSI."/>
+        <put-attribute name="body" expression="${competition}"/>
+        <put-attribute name="pageScripts" value="/robotic/js/resultsScripts.js"/>
+    </definition>
+    <!--Match Tables page-->
+    <definition name="agenda" extends="defaultLayout">
+        <put-attribute name="title" value="Расписание. Турнир робототехники TSI."/>
+        <put-attribute name="body" expression="${agenda}"/>
+        <put-attribute name="pageScripts" value="/robotic/js/agendaScripts.js"/>
+    </definition>
     <!-- Home Page -->
     <definition name="home" extends="defaultLayout">
-        <put-attribute name="title" value="Привет всем"/>
-        <put-attribute name="body" value="/WEB-INF/jsp/home_ru.jsp"/>
+        <put-attribute name="title" value="Добро пожаловать. Турнир робототехники TSI."/>
+        <put-attribute name="body" expression="${home}"/>
+        <put-attribute name="pageScripts" value="/robotic/js/homeScripts.js"/>
     </definition>
+    <!--Registration page-->
     <definition name="registration" extends="defaultLayout">
+        <put-attribute name="title" value="Регистрация. Турнир робототехники TSI."/>
         <put-attribute name="body" value="/WEB-INF/jsp/registration.jsp"/>
     </definition>
     <!--Team login page-->
     <definition name="login" extends="defaultLayout">
+        <put-attribute name="title" value="Вход. Турнир робототехники TSI."/>
         <put-attribute name="body" value="/WEB-INF/jsp/login.jsp"/>
     </definition>
     <!--Team menu page-->
     <definition name="teamMenu" template="/WEB-INF/tiles/layouts/teamMenuLayout.jsp">
-        <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
-        <put-attribute name="title" value="Team Menu"/>
-        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu_ru.jsp"/>
+        <put-attribute name="title" value="Коммандное меню. Турнир робототехники TSI."/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
         <put-attribute name="menuHeader" value="/WEB-INF/jsp/teamMenuHeader.jsp"/>
-        <put-attribute name="menuItemsList" value="/WEB-INF/jsp/teamMenuItemsList_ru.jsp"/>
-        <put-attribute name="menuBody" value="/WEB-INF/jsp/teamMenuBody_ru.jsp"/>
+        <put-attribute name="menuItemsList" value="/WEB-INF/jsp/teamMenuItemsList.jsp"/>
+        <put-attribute name="menuBody" value="/WEB-INF/jsp/teamMenuBody.jsp"/>
         <put-attribute name="menuAdditionals" value="/WEB-INF/jsp/teamMenuAdditionals.jsp"/>
         <put-attribute name="footer" value="/html/footer_ru.html"/>
+        <put-attribute name="flag" value="/pictures/ru.svg"/>
         <put-attribute name="pageScripts" value=""/>
 
     </definition>
 
     <!--Team menu actions-->
-        <definition name="editUser" extends="defaultLayout">
-            <put-attribute name="body" value="/WEB-INF/jsp/editUser.jsp"/>
-        </definition>
+    <definition name="editUser" extends="defaultLayout">
+        <put-attribute name="title" value="Изменить пользователя. Турнир робототехники TSI."/>
+        <put-attribute name="body" value="/WEB-INF/jsp/editUser.jsp"/>
+    </definition>
     <definition name="addRobot" extends="defaultLayout">
+        <put-attribute name="title" value="Добавить робота. Турнир робототехники TSI."/>
         <put-attribute name="body" value="/WEB-INF/jsp/addRobot.jsp"/>
-        <put-attribute name="pageScripts" value="/robotic/js/addRobot.js"/>
+        <put-attribute name="pageScripts" value="/js/addRobot.js"/>
 
     </definition>
     <definition name="editRobot" extends="defaultLayout">
+        <put-attribute name="title" value="Изменить робота. Турнир робототехники TSI."/>
         <put-attribute name="body" value="/WEB-INF/jsp/editRobot.jsp"/>
         <put-attribute name="pageScripts" value="/robotic/js/addRobot.js"/>
-
     </definition>
     <definition name="addMember" extends="defaultLayout">
+        <put-attribute name="title" value="Добавить участника. Турнир робототехники TSI."/>
         <put-attribute name="body" value="/WEB-INF/jsp/addMember.jsp"/>
     </definition>
     <definition name="editMember" extends="defaultLayout">
+        <put-attribute name="title" value="Изменить участника. Турнир робототехники TSI."/>
         <put-attribute name="body" value="/WEB-INF/jsp/editMember.jsp"/>
+    </definition>
+    <!-- About competitions pages-->
+    <definition name="aboutCompetitions" extends="defaultLayout">
+        <put-attribute name="title" value="О соревнованиях. Турнир робототехники TSI."/>
+        <put-attribute name="body" expression="${page}"/>
+        <put-attribute name="pageScripts" value="/robotic/js/aboutCompetitionsScripts.js"/>
     </definition>
     <!--Competitions rules-->
     <definition name="rulesLayout" template="/WEB-INF/tiles/layouts/rulesLayout.jsp">
         <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
-        <put-attribute name="title" value="Правила состязания"/>
+        <put-attribute name="title" value="Правила состязаний. Турнир робототехники TSI."/>
         <put-attribute name="footer" value="/html/footer_ru.html"/>
-        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu_ru.jsp"/>
-        <put-attribute name="definitionTitle" value="Определение"/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
+        <put-attribute name="definitionTitle" value="Оперделения"/>
         <put-attribute name="conditionsTitle" value="Условия"/>
         <put-attribute name="fieldTitle" value="Поле"/>
-        <put-attribute name="requirementsTitle" value="Требование к роботу"/>
+        <put-attribute name="requirementsTitle" value="Требования к роботу"/>
         <put-attribute name="procedureTitle" value="Порядок проведения состязания"/>
         <put-attribute name="pageScripts" value="/robotic/js/rulesScripts.js"/>
 
     </definition>
     <definition name="sumoRules" extends="rulesLayout">
+        <put-attribute name="title" value="Правила Сумо. Турнир робототехники TSI."/>
         <put-attribute name="definition" value="/html/sumo/definition_ru.html"/>
         <put-attribute name="conditions" value="/html/sumo/conditions_ru.html"/>
         <put-attribute name="field" value="/html/sumo/field_ru.html"/>
         <put-attribute name="requirements" value="/html/sumo/requirements_ru.html"/>
         <put-attribute name="procedure" value="/html/sumo/procedure_ru.html"/>
     </definition>
+    <definition name="linefollowerRules" extends="rulesLayout">
+        <put-attribute name="title" value="Правила следования по линии. Турнир робототехники TSI."/>
+        <put-attribute name="definition" value="/html/linefollower/definition_ru.html"/>
+        <put-attribute name="conditions" value="/html/linefollower/conditions_ru.html"/>
+        <put-attribute name="field" value="/html/linefollower/field_ru.html"/>
+        <put-attribute name="requirements" value="/html/linefollower/requirements_ru.html"/>
+        <put-attribute name="procedure" value="/html/linefollower/procedure_ru.html"/>
+    </definition>
+    <definition name="labyrinthRules" extends="rulesLayout">
+        <put-attribute name="title" value="Правила лабиринта. Турнир робототехники TSI."/>
+        <put-attribute name="definition" value="/html/labyrinth/definition_ru.html"/>
+        <put-attribute name="conditions" value="/html/labyrinth/conditions_ru.html"/>
+        <put-attribute name="field" value="/html/labyrinth/field_ru.html"/>
+        <put-attribute name="requirements" value="/html/labyrinth/requirements_ru.html"/>
+        <put-attribute name="procedure" value="/html/labyrinth/procedure_ru.html"/>
+    </definition>
+    <definition name="folkraceRules" extends="rulesLayout">
+        <put-attribute name="title" value="Правила Folkrace. Турнир робототехники TSI."/>
+        <put-attribute name="definition" value="/html/folkrace/definition_ru.html"/>
+        <put-attribute name="conditions" value="/html/folkrace/conditions_ru.html"/>
+        <put-attribute name="field" value="/html/folkrace/field_ru.html"/>
+        <put-attribute name="requirements" value="/html/folkrace/requirements_ru.html"/>
+        <put-attribute name="procedure" value="/html/folkrace/procedure_ru.html"/>
+    </definition>
     <!-- Errors pages-->
     <definition name="errorPage" extends="defaultLayout">
+        <put-attribute name="title" value="Страница ошибки. Турнир робототехники TSI."/>
         <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
         <put-attribute name="body" value="/WEB-INF/jsp/errorPage.jsp"/>
         <put-attribute name="footer" value="/html/footer_ru.html"/>
         <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
-        <put-attribute name="title" value="Error"/>
+    </definition>
+    <!--admin menu-->
+    <definition name="adminMenu" template="/WEB-INF/tiles/layouts/adminMenuLayout.jsp">
+        <put-attribute name="title" value="Меню администратора. Турнир робототехники TSI."/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
+        <put-attribute name="menuHeader" value="/WEB-INF/jsp/adminMenuHeader.jsp"/>
+        <put-attribute name="menuItemsList" value="/WEB-INF/jsp/adminMenuItemsList.jsp"/>
+        <put-attribute name="menuBody" value="/WEB-INF/jsp/adminMenuBody.jsp"/>
+        <put-attribute name="menuAdditionals" value="/WEB-INF/jsp/adminMenuAdditionals.jsp"/>
+        <put-attribute name="footer" value="/html/footer_ru.html"/>
+        <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
+        <put-attribute name="pageScripts" value="/robotic/js/adminPageScripts.js"/>
+    </definition>
+    <definition name="createTournament" extends="defaultLayout">
+        <put-attribute name="title" value="Создать турнир. Турнир робототехники TSI."/>
+        <put-attribute name="body" value="/WEB-INF/jsp/createTournament.jsp"/>
+        <put-attribute name="pageScripts" value="/robotic/js/createTournamentScripts.js"/>
+    </definition>
+
+    <!-- Participants tables -->
+    <definition name="participantsTables" template="/WEB-INF/tiles/layouts/tablesPageLayout.jsp">
+        <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
+        <put-attribute name="body" value="/WEB-INF/jsp/participantsTables.jsp"/>
+        <put-attribute name="footer" value="/html/footer_ru.html"/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
+        <put-attribute name="title" value="Таблицы участников. Турнир робототехники TSI."/>
+        <put-attribute name="pageScripts" value="/robotic/js/competitionTablesScripts.js"/>
+    </definition>
+    <!-- Operators pages-->
+    <definition name="lfOperator" template="/WEB-INF/tiles/layouts/operatorPageLayout.jsp">
+        <put-attribute name="body" value="/WEB-INF/jsp/lfOperatorPage.jsp"/>
+        <put-attribute name="pageScripts" value="/robotic/js/lfOperatorPageScripts.js"/>
+        <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
+        <put-attribute name="title" value="Управление следования по линии. Турнир робототехники TSI."/>
+    </definition>
+    <definition name="registrarPage" extends="defaultLayout">
+        <put-attribute name="title" value="Страница регистратора. Турнир робототехники TSI."/>
+        <put-attribute name="body" value="/WEB-INF/jsp/registrarPage.jsp"/>
+        <put-attribute name="pageScripts" value="/robotic/js/registrarPageScripts.js"/>
+    </definition>
+    <!-- Photo template-->
+    <definition name="photo" template="/WEB-INF/tiles/layouts/photoLayout.jsp">
+        <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
+        <put-attribute name="footer" value="/html/footer_ru.html"/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
+        <put-attribute name="title" value="Фото. Турнир робототехники TSI."/>
+        <put-attribute name="body" value="/WEB-INF/jsp/photo.jsp"/>
+        <put-attribute name="pageScripts" value="/robotic/js/photoPageScripts.js"/>
+    </definition>
+    <!-- Video template-->
+    <definition name="video" template="/WEB-INF/tiles/layouts/videoLayout.jsp">
+        <put-attribute name="flag" value="/robotic/pictures/ru.svg"/>
+        <put-attribute name="footer" value="/html/footer_ru.html"/>
+        <put-attribute name="topMenu" value="/WEB-INF/tiles/templates/topMenu.jsp"/>
+        <put-attribute name="title" value="Видео. Турнир робототехники TSI."/>
+        <put-attribute name="body" value="/WEB-INF/jsp/video.jsp"/>
+        <put-attribute name="pageScripts" value="/robotic/js/videoPageScripts.js"/>
     </definition>
 </tiles-definitions>

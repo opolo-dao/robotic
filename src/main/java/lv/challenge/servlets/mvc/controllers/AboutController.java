@@ -36,7 +36,7 @@ public class AboutController {
     @GetMapping("/linefollower")
     public String getAboutLinefollower(Model model) {
         Locale locale = LocaleContextHolder.getLocale();
-        model.addAttribute("page", "/html/aboutCompetitions/linefollower__" + locale.getLanguage() + ".html");
+        model.addAttribute("page", "/html/aboutCompetitions/linefollower_" + locale.getLanguage() + ".html");
         return "aboutCompetitions";
     }
 
